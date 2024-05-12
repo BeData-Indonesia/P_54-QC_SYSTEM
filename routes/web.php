@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ExpanderController;
+use App\Http\Controllers\InjectController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,9 @@ Route::prefix('input')->middleware(['auth', 'verified'])->name('dashboard')->gro
         Route::put('/edit/{expander}', [ExpanderController::class, 'update'])->name('expanders.update');
         Route::post('/create', [ExpanderController::class, 'store'])->name('expanders.store');
         Route::delete('/{expander}', [ExpanderController::class, 'destroy'])->name('expanders.destroy');
+    });
+    Route::prefix('injects')->group(function () {
+        Route::get('/',[InjectController::class,'index'])->name('inject.index');
     });
 });
 

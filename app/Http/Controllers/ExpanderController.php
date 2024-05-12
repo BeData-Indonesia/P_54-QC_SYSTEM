@@ -12,12 +12,12 @@ class ExpanderController extends Controller
     public function index()
     {
         $expanders = new ExpandersCollection(Expander::paginate(10));
-        return Inertia::render('Inject/Expander',['expanders'=>$expanders]);
+        return Inertia::render('Input/Expander',['expanders'=>$expanders]);
     }
 
     public function create()
     {
-        return Inertia::render('Inject/Expander/Create');
+        return Inertia::render('Input/Expander/Create');
     }
 
     public function store(Request $request)
@@ -52,7 +52,7 @@ class ExpanderController extends Controller
 
         $expander = Expander::find($id);
 
-        return Inertia::render('Inject/Expander/Edit',['data'=>$expander]);
+        return Inertia::render('Input/Expander/Edit',['data'=>$expander]);
         } catch (\Throwable $th) {
             return redirect()->with(['message'=> 'Gagal menuju halam edit expander', 'success'=>false]);
         }   
