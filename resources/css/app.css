@@ -2,13 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.table td:last-child {
+/* .table td:last-child {
     border-radius: 0 5px 5px 0;
-}
-.table th {
-    border-radius: 5px 0 0 5px;
+} */
+.table td {
+    /* border-radius: 0px 0px 0px 0px; */
+    padding: 24px;
 }
 
-.table tbody tr {
+/* .table tbody tr {
     border-bottom: 0px;
-}
+} */

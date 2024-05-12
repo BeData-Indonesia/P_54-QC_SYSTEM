@@ -1,3 +1,4 @@
+import { Link } from "@inertiajs/inertia-react";
 import React from "react";
 
 export default function Sidebar() {
@@ -8,10 +9,13 @@ export default function Sidebar() {
                     <summary>Inject</summary>
                     <ul>
                         <li>
-                            <a>Submenu 1</a>
+                            <Link href="/inject/expanders">Expander</Link>
                         </li>
                         <li>
-                            <a>Submenu 2</a>
+                            <Link href="/inject/injects">Inject</Link>
+                        </li>
+                        <li>
+                            <Link href="/inject/baloks">Balok</Link>
                         </li>
                     </ul>
                 </details>
@@ -29,9 +33,6 @@ export default function Sidebar() {
                     </ul>
                 </details>
             </li>
-            {/* <li>
-                <a>Item 3</a>
-            </li> */}
         </ul>
     );
 }

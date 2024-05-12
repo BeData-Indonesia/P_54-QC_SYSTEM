@@ -1,17 +1,53 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
-import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/inertia-react";
 import Sidebar from "@/Components/menu/Sidebar";
 
-export default function Authenticated({ auth, header, children }) {
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+export default function Authenticated({ auth, header, children, status }) {
+    const [theme, setTheme] = useState("light");
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
+    useEffect(() => {
+        const notify = () => {
+            if (status?.success) {
+                toast.success(status.message, {
+                    position: "top-center",
+                    autoClose: 4999,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    // transition: "Bounce",
+                });
+            }
+            if (status?.success === false) {
+                toast.error(status.message, {
+                    position: "top-center",
+                    autoClose: 4999,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    // transition: "Bounce",
+                });
+            }
+        };
+        notify();
+        document.querySelector("html").setAttribute("data-theme", theme);
+    }, []);
+
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-gray-100" dataTheme>
             <nav className="bg-white border-b border-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
@@ -21,14 +57,6 @@ export default function Authenticated({ auth, header, children }) {
                                     <ApplicationLogo className="block h-9 w-auto text-gray-500" />
                                 </Link>
                             </div>
-                            {/* <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink
-                                    href={route("dashboard")}
-                                    active={route().current("dashboard")}
-                                >
-                                    Dashboard
-                                </NavLink>
-                            </div> */}
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ml-6">
@@ -164,6 +192,19 @@ export default function Authenticated({ auth, header, children }) {
                 <div className=" flex">
                     <Sidebar />
                     {children}
+                    <ToastContainer
+                        position="top-center"
+                        autoClose={4999}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        // rtl={false}
+                        pauseOnFocusLoss
+                        // draggable
+                        pauseOnHover
+                        theme="light"
+                        // transition="Bounce"
+                    />
                 </div>
             </main>
         </div>

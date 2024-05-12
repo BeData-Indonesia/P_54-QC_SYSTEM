@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ExpanderController;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -25,7 +27,34 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return redirect('/inject/expanders/');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
+
+
+// Route::prefix('expanders')->middleware(['auth', 'verified'])->group(function () {
+//     Route::get('/', [ExpanderController::class, 'index'])->name('expanders.index');
+//     Route::get('/create', [ExpanderController::class, 'create'])->name('expanders.create');
+//     Route::post('/', [ExpanderController::class, 'store'])->name('expanders.store');
+    // Route::get('/{expander}', [ExpanderController::class, 'show'])->name('expanders.show');
+    // Route::get('/{expander}/edit', [ExpanderController::class, 'edit'])->name('expanders.edit');
+    // Route::put('/{expander}', [ExpanderController::class, 'update'])->name('expanders.update');
+//     Route::delete('/{expander}', [ExpanderController::class, 'destroy'])->name('expanders.destroy');
+// });
+
+
+Route::prefix('inject')->middleware(['auth', 'verified'])->name('dashboard')->group(function(){
+    Route::prefix('expanders')->group(function () {
+        Route::get('/',[ExpanderController::class,'index'])->name('expanders.index');
+        Route::get('/create', [ExpanderController::class, 'create'])->name('expanders.create');
+        Route::get('/edit/{expander}', [ExpanderController::class, 'edit'])->name('expanders.edit');
+        Route::put('/edit/{expander}', [ExpanderController::class, 'update'])->name('expanders.update');
+        Route::post('/create', [ExpanderController::class, 'store'])->name('expanders.store');
+        Route::delete('/{expander}', [ExpanderController::class, 'destroy'])->name('expanders.destroy');
+    });
+});
+
+
 
 require __DIR__.'/auth.php';

@@ -8,6 +8,10 @@ import ValidationErrors from '@/Components/ValidationErrors';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 
 export default function Login({ status, canResetPassword }) {
+
+    useEffect(() => {
+        document.querySelector("html").setAttribute("data-theme", 'light');
+    }, []);
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
@@ -43,6 +47,7 @@ export default function Login({ status, canResetPassword }) {
                     <Label forInput="email" value="Email" />
 
                     <Input
+                        size="md"
                         type="text"
                         name="email"
                         value={data.email}
