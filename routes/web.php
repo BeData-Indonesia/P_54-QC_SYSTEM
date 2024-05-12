@@ -27,7 +27,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return redirect('/inject/expanders/');
+    return redirect('/input/expanders/');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
@@ -44,7 +44,7 @@ Route::get('/dashboard', function () {
 // });
 
 
-Route::prefix('inject')->middleware(['auth', 'verified'])->name('dashboard')->group(function(){
+Route::prefix('input')->middleware(['auth', 'verified'])->name('dashboard')->group(function(){
     Route::prefix('expanders')->group(function () {
         Route::get('/',[ExpanderController::class,'index'])->name('expanders.index');
         Route::get('/create', [ExpanderController::class, 'create'])->name('expanders.create');

@@ -5,24 +5,25 @@ import Input from "@/Components/Form/Input";
 import Button from "@/Components/Button";
 import Select from "@/Components/Form/Select";
 
-export default function CreateExpander(props) {
-    const { errors, post, data, setData } = useForm({
-        kode_bahan: "tess",
-        banyak_kg: 1,
-        no_silo: 0,
-        shift:"1",
-        untuk_produk:"2323",
-        berat_jenis:0,
-        density:0,
-        keterangan:"232"
+export default function EditExpander(props) {
+    console.log(props);
+    const { errors, post, data, setData, put } = useForm({
+        kode_bahan: props?.data?.kode_bahan,
+        banyak_kg: props.data.banyak_kg,
+        no_silo: props.data.no_silo,
+        shift: props.data.shift,
+        untuk_produk: props.data.untuk_produk,
+        berat_jenis: props.data.berat_jenis,
+        density: props.data.density,
+        keterangan: props.data.keterangan,
     });
     const handleSubmit = (e) => {
-        e.preventDefault()
-        post('/inject/expanders/create')
+        e.preventDefault();
+        put(`/input/expanders/edit/${data.kode_bahan}`);
     };
-    React.useEffect(()=>{
-        console.log({data})
-    },[data])
+    React.useEffect(() => {
+        console.log({ data });
+    }, [data]);
 
     return (
         <Authenticated auth={props.auth} errors={props.errors}>
@@ -36,7 +37,11 @@ export default function CreateExpander(props) {
                             </div>
                             <form onSubmit={handleSubmit}>
                                 <Input
-                                    value={data.kode_bahan} onChange={e => setData('kode_bahan', e.target.value)} 
+                                    disabled={true}
+                                    value={data.kode_bahan}
+                                    onChange={(e) =>
+                                        setData("kode_bahan", e.target.value)
+                                    }
                                     name="kode_bahan"
                                     label="Kode Bahan"
                                     className=""
@@ -45,8 +50,11 @@ export default function CreateExpander(props) {
                                     size="md"
                                 />
                                 <Input
-                                      value={data.banyak_kg} onChange={e => setData('banyak_kg', e.target.value)} 
-                                      name="banyak_kg"
+                                    value={data.banyak_kg}
+                                    onChange={(e) =>
+                                        setData("banyak_kg", e.target.value)
+                                    }
+                                    name="banyak_kg"
                                     label="Banyak KG"
                                     className=""
                                     placeholder={"0"}
@@ -54,18 +62,28 @@ export default function CreateExpander(props) {
                                     size="sm"
                                 />
                                 <Select
-                                    value={data.shift} onChange={e => setData('shift', e.target.value)} 
+                                    value={data.shift}
+                                    onChange={(e) =>
+                                        setData("shift", e.target.value)
+                                    }
                                     name="shift"
                                     label="Shift"
                                     className=""
                                     placeholder={"0"}
                                     type="number"
                                     size="sm"
-                                    options={[{name:1,value:1},{name:2,value:2},{name:3,value:3}]}
+                                    options={[
+                                        { name: 1, value: 1 },
+                                        { name: 2, value: 2 },
+                                        { name: 3, value: 3 },
+                                    ]}
                                 />
                                 <Input
-                                  value={data.no_silo} onChange={e => setData('no_silo', e.target.value)} 
-                                  name="no_silo"
+                                    value={data.no_silo}
+                                    onChange={(e) =>
+                                        setData("no_silo", e.target.value)
+                                    }
+                                    name="no_silo"
                                     label="No silo"
                                     className=""
                                     placeholder={"1"}
@@ -73,8 +91,11 @@ export default function CreateExpander(props) {
                                     size="sm"
                                 />
                                 <Input
-                                   value={data.untuk_produk} onChange={e => setData('untuk_produk', e.target.value)} 
-                                   name="untuk_produk"
+                                    value={data.untuk_produk}
+                                    onChange={(e) =>
+                                        setData("untuk_produk", e.target.value)
+                                    }
+                                    name="untuk_produk"
                                     label="Produk"
                                     className=""
                                     placeholder={"AAB!"}
@@ -82,8 +103,11 @@ export default function CreateExpander(props) {
                                     size="sm"
                                 />
                                 <Input
-                                 value={data.berat_jenis} onChange={e => setData('berat_jenis', e.target.value)} 
-                                 name="berat_jenis"
+                                    value={data.berat_jenis}
+                                    onChange={(e) =>
+                                        setData("berat_jenis", e.target.value)
+                                    }
+                                    name="berat_jenis"
                                     label="Berat Jenis"
                                     className=""
                                     placeholder={"11.01"}
@@ -92,8 +116,11 @@ export default function CreateExpander(props) {
                                     size="sm"
                                 />
                                 <Input
-                                 value={data.density} onChange={e => setData('density', e.target.value)} 
-                                 name="density"
+                                    value={data.density}
+                                    onChange={(e) =>
+                                        setData("density", e.target.value)
+                                    }
+                                    name="density"
                                     label="Density"
                                     className=""
                                     placeholder={"11.01"}
@@ -102,8 +129,11 @@ export default function CreateExpander(props) {
                                     size="sm"
                                 />
                                 <Input
-                                     value={data.keterangan} onChange={e => setData('keterangan', e.target.value)} 
-                                     name="keterangan"
+                                    value={data.keterangan}
+                                    onChange={(e) =>
+                                        setData("keterangan", e.target.value)
+                                    }
+                                    name="keterangan"
                                     label="Keterangan"
                                     className=""
                                     placeholder={"Produk A adalah"}
@@ -111,7 +141,7 @@ export default function CreateExpander(props) {
                                     size="sm"
                                 />
                                 <div className=" my-8 w-full items-end flex justify-end">
-                                    <Button type="submit" children={"Submit"} />
+                                    <Button type="submit" children={"Edit"} />
                                 </div>
                             </form>
                         </div>

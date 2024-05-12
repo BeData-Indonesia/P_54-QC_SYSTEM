@@ -6,16 +6,16 @@ export default function Sidebar() {
         <ul className="menu  bg-base-200 w-56 min-h-screen">
             <li>
                 <details open>
-                    <summary>Inject</summary>
+                    <summary>Input</summary>
                     <ul>
                         <li>
-                            <Link href="/inject/expanders">Expander</Link>
+                            <Link href="/input/expanders">Expander</Link>
                         </li>
                         <li>
-                            <Link href="/inject/injects">Inject</Link>
+                            <Link href="/input/inject">Inject</Link>
                         </li>
                         <li>
-                            <Link href="/inject/baloks">Balok</Link>
+                            <Link href="/input/baloks">Balok</Link>
                         </li>
                     </ul>
                 </details>

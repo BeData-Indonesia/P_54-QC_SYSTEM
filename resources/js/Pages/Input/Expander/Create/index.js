@@ -5,21 +5,20 @@ import Input from "@/Components/Form/Input";
 import Button from "@/Components/Button";
 import Select from "@/Components/Form/Select";
 
-export default function EditExpander(props) {
-    console.log(props);
-    const { errors, post, data, setData, put } = useForm({
-        kode_bahan: props?.data?.kode_bahan,
-        banyak_kg: props.data.banyak_kg,
-        no_silo: props.data.no_silo,
-        shift: props.data.shift,
-        untuk_produk: props.data.untuk_produk,
-        berat_jenis: props.data.berat_jenis,
-        density: props.data.density,
-        keterangan: props.data.keterangan,
+export default function CreateExpander(props) {
+    const { errors, post, data, setData } = useForm({
+        kode_bahan: "tess",
+        banyak_kg: 1,
+        no_silo: 0,
+        shift: "1",
+        untuk_produk: "2323",
+        berat_jenis: 0,
+        density: 0,
+        keterangan: "232",
     });
     const handleSubmit = (e) => {
         e.preventDefault();
-        put(`/inject/expanders/edit/${data.kode_bahan}`);
+        post("/input/expanders/create");
     };
     React.useEffect(() => {
         console.log({ data });
@@ -37,7 +36,6 @@ export default function EditExpander(props) {
                             </div>
                             <form onSubmit={handleSubmit}>
                                 <Input
-                                    disabled={true}
                                     value={data.kode_bahan}
                                     onChange={(e) =>
                                         setData("kode_bahan", e.target.value)
@@ -141,7 +139,7 @@ export default function EditExpander(props) {
                                     size="sm"
                                 />
                                 <div className=" my-8 w-full items-end flex justify-end">
-                                    <Button type="submit" children={"Edit"} />
+                                    <Button type="submit" children={"Submit"} />
                                 </div>
                             </form>
                         </div>

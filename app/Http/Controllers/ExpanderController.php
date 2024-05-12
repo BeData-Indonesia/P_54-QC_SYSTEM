@@ -12,7 +12,6 @@ class ExpanderController extends Controller
     public function index()
     {
         $expanders = new ExpandersCollection(Expander::paginate(10));
-        // dd($expanders);
         return Inertia::render('Inject/Expander',['expanders'=>$expanders]);
     }
 
@@ -25,14 +24,14 @@ class ExpanderController extends Controller
     {
         $kodeBahan = $request->input('kode_bahan');
         if (Expander::where('kode_bahan', $kodeBahan)->exists()) {
-            return redirect('/inject/expanders/create')->with([
+            return redirect('/input/expanders/create')->with([
                 'message' => 'Expander tidak berhasil ditambahkan!',
                 'success' => false,
             ]);
         } 
         
         Expander::create($request->all());
-        return redirect('/inject/expanders/')->with(['message'=> 'Expander berhasil ditambahkan!', 'success'=>true]);
+        return redirect('/input/expanders/')->with(['message'=> 'Expander berhasil ditambahkan!', 'success'=>true]);
         
        
       
@@ -76,7 +75,7 @@ class ExpanderController extends Controller
         
         $expander->update($request->all());
         
-        return redirect('/inject/expanders')->with(['message'=> 'Berhasil update expander', 'success'=>true]);
+        return redirect('/input/expanders')->with(['message'=> 'Berhasil update expander', 'success'=>true]);
         } catch (\Throwable $th) {
             return redirect()->with(['message'=> 'Gagal edit expander', 'success'=>false]);
         }   
@@ -90,7 +89,7 @@ class ExpanderController extends Controller
          $id = $lastSegment;
          $expander->delete($id);
 
-        return redirect('/inject/expanders/')
+        return redirect('/input/expanders/')
                          ->with('success', 'Expander berhasil dihapus!');
     }
 }

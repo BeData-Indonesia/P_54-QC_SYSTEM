@@ -10,13 +10,12 @@ export default function Expander(props) {
     const [modalDeleteOpen, setModalDeleteOpen] = React.useState(false);
     const [idDelete, setIdDelete] = React.useState();
     const { expanders } = props;
-
     const onDeleteRow = (id) => {
         onModalDeleteopen();
         setIdDelete(id);
     };
     const onEditRow = (id) => {
-        Inertia.get(`/inject/expanders/edit/${id}`);
+        Inertia.get(`/input/expanders/edit/${id}`);
     };
     const onModalDeleteClose = () => {
         setModalDeleteOpen(false);
@@ -26,7 +25,7 @@ export default function Expander(props) {
     };
     const onDataDelete = () => {
         if (idDelete) {
-            Inertia.delete(`/inject/expanders/${idDelete}`);
+            Inertia.delete(`/input/expanders/${idDelete}`);
         }
         setIdDelete(null);
         setModalDeleteOpen(false);
@@ -46,7 +45,7 @@ export default function Expander(props) {
                             <h2 className=" text-xl font-bold">Expander</h2>
                             <div className="my-6 flex justify-end">
                                 <Link
-                                    href="/inject/expanders/create"
+                                    href="/input/expanders/create"
                                     className="btn w-24"
                                 >
                                     Create
