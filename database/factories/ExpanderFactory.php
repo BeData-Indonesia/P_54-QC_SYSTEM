@@ -13,7 +13,7 @@ class ExpanderFactory extends Factory
     {
         return [
             'kode_bahan' => $this->faker->unique()->word(),
-            'shift' => $this->faker->randomNumber(),
+            'shift' => $this->faker->numberBetween(1, 3),
             'banyak_kg' => $this->faker->randomFloat(2, 100, 1000),
             'no_silo' => $this->faker->randomNumber(),
             'untuk_produk' => $this->faker->word(),

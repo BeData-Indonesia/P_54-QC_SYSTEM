@@ -16,18 +16,17 @@ class CreateInjectTable extends Migration
         Schema::create('inject', function (Blueprint $table) {
             $table->increments('no_inject');
             $table->timestamps();
-            $table->integer('shif');
+            $table->string('type');
             $table->integer('spasi');
             $table->string('nama_barang');
             $table->integer('counter');
             $table->integer('hasil');
-            $table->integer('ruas');
+            $table->integer('rusak');
             $table->integer('cycle_time');
             $table->integer('aging_time');
             $table->float('berat_kering');
             $table->text('keterangan');
-            $table->string('kode_bahan');
-            $table->foreign('kode_bahan')->references('kode_bahan')->on('expander')->onDelete('cascade');
+            $table->foreign('type')->references('kode_bahan')->on('expander')->onDelete('cascade');
         });
     }
 

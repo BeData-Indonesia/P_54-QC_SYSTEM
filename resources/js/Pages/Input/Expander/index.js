@@ -5,6 +5,7 @@ import TableExpander from "@/Components/Pages/Inject/Expander/TablesExpander";
 import Pagination from "@/Components/Pagination/Pagination";
 import ModalDelete from "@/Components/Modal/ModalDelete";
 import { Inertia } from "@inertiajs/inertia";
+import DashboardLayout from "../../../Layouts/DashboardLayout";
 export default function Expander(props) {
     const modalDeleteRef = React.useRef(null);
     const [modalDeleteOpen, setModalDeleteOpen] = React.useState(false);
@@ -30,7 +31,7 @@ export default function Expander(props) {
         setIdDelete(null);
         setModalDeleteOpen(false);
     };
-
+    console.log(props);
     return (
         <Authenticated
             auth={props.auth}
@@ -38,37 +39,26 @@ export default function Expander(props) {
             status={props.status}
         >
             <Head title="Dashboard" />
-            <div className=" py-8  w-full overflow-hidden">
-                <div className="  mx-auto sm:px-6 lg:px-8 w">
-                    <div className="bg-white  shadow-sm sm:rounded-lg">
-                        <div className="p-6 bg-white border-b border-gray-200   ">
-                            <h2 className=" text-xl font-bold">Expander</h2>
-                            <div className="my-6 flex justify-end">
-                                <Link
-                                    href="/input/expanders/create"
-                                    className="btn w-24"
-                                >
-                                    Create
-                                </Link>
-                            </div>
-                            <TableExpander
-                                rows={expanders}
-                                onDelete={onDeleteRow}
-                                onEdit={onEditRow}
-                            />
-                            <div className=" flex justify-center my-4">
-                                <Pagination
-                                    prevLink={props.expanders.links.prev}
-                                    nextLink={props.expanders.links.next}
-                                    currentPage={
-                                        props.expanders.meta.current_page
-                                    }
-                                />
-                            </div>
-                        </div>
-                    </div>
+            <DashboardLayout>
+                <h2 className=" text-xl font-bold">Expander</h2>
+                <div className="my-6 flex justify-end">
+                    <Link href="/input/expanders/create" className="btn w-24">
+                        Create
+                    </Link>
                 </div>
-            </div>
+                <TableExpander
+                    rows={expanders}
+                    onDelete={onDeleteRow}
+                    onEdit={onEditRow}
+                />
+                <div className=" flex justify-center my-4">
+                    <Pagination
+                        prevLink={props.expanders.links.prev}
+                        nextLink={props.expanders.links.next}
+                        currentPage={props.expanders.meta.current_page}
+                    />
+                </div>
+            </DashboardLayout>
             <ModalDelete
                 ref={modalDeleteRef}
                 onModalClose={onModalDeleteClose}

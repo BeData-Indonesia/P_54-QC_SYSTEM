@@ -1,26 +1,64 @@
 import * as React from "react";
-import { Head } from "@inertiajs/inertia-react";
-import Table from "@/Components/Table/Table";
+import { Head, Link } from "@inertiajs/inertia-react";
 import Authenticated from "@/Layouts/Authenticated";
-
-export default function Unit(props) {
+import DashboardLayout from "@/Layouts/DashboardLayout";
+import TableInject from "@/Components/Pages/Inject/Inject/TableInject";
+import ModalDelete from "@/Components/Modal/ModalDelete";
+import { Inertia } from "@inertiajs/inertia";
+import Pagination from "@/Components/Pagination/Pagination";
+export default function Inject(props) {
+    const { injects } = props;
+    const [modalDeleteOpen, setModalDeleteOpen] = React.useState(false);
+    const [idDelete, setIdDelete] = React.useState();
+    const onDeleteRow = (id) => {
+        onModalDeleteopen();
+        setIdDelete(id);
+    };
+    const onEditRow = (id) => {
+        Inertia.get(`/input/injects/edit/${id}`);
+    };
+    const onModalDeleteClose = () => {
+        setModalDeleteOpen(false);
+    };
+    const onModalDeleteopen = () => {
+        setModalDeleteOpen(true);
+    };
+    const onDataDelete = () => {
+        if (idDelete) {
+            Inertia.delete(`/input/injects/${idDelete}`);
+        }
+        setIdDelete(null);
+        setModalDeleteOpen(false);
+    };
     return (
         <Authenticated auth={props.auth} errors={props.errors}>
             <Head title="Dashboard" />
-
-            <div className=" py-8  w-full">
-                <div className="  mx-auto sm:px-6 lg:px-8 w">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 bg-white border-b border-gray-200  ">
-                            {/* You're logged in!
-                            <button className="btn btn-primary">
-                                Secondary
-                            </button> */}
-                            <Table />
-                        </div>
-                    </div>
+            <DashboardLayout>
+                <h2 className=" text-xl font-bold">Inject</h2>
+                <div className="my-6 flex justify-end">
+                    <Link href="/input/injects/create" className="btn w-24">
+                        Create
+                    </Link>
                 </div>
-            </div>
+                <TableInject
+                    rows={injects}
+                    onDelete={onDeleteRow}
+                    onEdit={onEditRow}
+                />
+                <div className=" flex justify-center my-4">
+                    <Pagination
+                        prevLink={props.injects.links.prev}
+                        nextLink={props.injects.links.next}
+                        currentPage={props.injects.meta.current_page}
+                    />
+                </div>
+                <ModalDelete
+                    onModalClose={onModalDeleteClose}
+                    onModalDeleteopen={onModalDeleteopen}
+                    modalDeleteOpen={modalDeleteOpen}
+                    onDelete={onDataDelete}
+                />
+            </DashboardLayout>
         </Authenticated>
     );
 }

@@ -2,78 +2,86 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\DataCollection;
 use App\Models\Balok;
 use App\Models\Expander;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use Throwable;
 
 class BalokController extends Controller
 {
     public function index()
     {
-        // Mengambil semua data expander
-        $expanders = Balok::all();
-        
-        // Mengirim data expander ke view index
-        // return 
-        return Inertia::render('/resources/js/Pages/Inject/Expander/index.js');
+        $baloks = new DataCollection(Balok::paginate(10));
+        return Inertia::render('Input/Balok',['baloks'=>$baloks]);
     }
 
     public function create()
     {
-        // Mengirimkan view untuk membuat expander baru
-        return view('expander.create');
+        $expanders = Expander::all();
+        return Inertia::render('Input/Balok/Create',['expanders'=>$expanders]);
     }
 
     public function store(Request $request)
     {
-        // Validasi data yang dikirim dari form
         $request->validate([
-            // Sesuaikan aturan validasi sesuai kebutuhan
         ]);
-
-        // Membuat expander baru berdasarkan data yang dikirim dari form
         Balok::create($request->all());
-
-        // Redirect ke halaman index dengan pesan sukses
-        return redirect()->route('expander.index')
-                         ->with('success', 'Expander berhasil ditambahkan!');
+        return redirect('/input/baloks')->with(['message'=> 'Berhasil create balok', 'success'=>true]);
     }
 
     public function show(Balok $expander)
     {
-        // Mengirim data expander yang dipilih ke view show
+  
         return view('expander.show', compact('expander'));
     }
 
-    public function edit(Balok $expander)
+    public function edit(Request $request)
     {
-        // Mengirim data expander yang dipilih ke view edit
-        return view('expander.edit', compact('expander'));
+        try {
+            $fullPath = $request->path();
+            $segments = explode('/', $fullPath);
+            $lastSegment = end($segments);
+            $id = $lastSegment;
+    
+            $balok = Balok::find($id);
+            $expanders = Expander::all();
+    
+            return Inertia::render('Input/Balok/Edit',['balok'=>$balok,'expanders'=>$expanders]);
+            } catch (\Throwable $th) {
+                return redirect()->with(['message'=> 'Gagal menuju halaman edit balok', 'success'=>false]);
+            }   
     }
 
-    public function update(Request $request, Balok $expander)
+    public function update(Request $request)
     {
-        // Validasi data yang dikirim dari form
-        $request->validate([
-            // Sesuaikan aturan validasi sesuai kebutuhan
-        ]);
-
-        // Update data expander berdasarkan data yang dikirim dari form
-        $expander->update($request->all());
-
-        // Redirect ke halaman index dengan pesan sukses
-        return redirect()->route('expander.index')
-                         ->with('success', 'Expander berhasil diperbarui!');
+        try{
+        $fullPath = $request->path();
+        $segments = explode('/', $fullPath);
+        $lastSegment = end($segments);
+        $id = $lastSegment;
+        $balok = Balok::find($id);
+        $balok->update($request->all());
+        return redirect('/input/baloks')->with(['message'=> 'Berhasil update expander', 'success'=>true]);
+        } catch (\Throwable $th) {
+            return redirect()->with(['message'=> 'Gagal edit expander', 'success'=>false]);
+        }   
     }
 
-    public function destroy(Balok $expander)
+    public function destroy(Request $request)
     {
-        // Hapus data expander
-        $expander->delete();
-
-        // Redirect ke halaman index dengan pesan sukses
-        return redirect()->route('expander.index')
-                         ->with('success', 'Expander berhasil dihapus!');
+        try{
+            $fullPath = $request->path();
+            $segments = explode('/', $fullPath);
+            $lastSegment = end($segments);
+            $id = $lastSegment;
+            DB::table('balok')->where('no_balok', $id)->delete();
+            return redirect('/input/baloks/')->with(['message'=> 'Sukses hapus baloks', 'success'=>true]);
+        }catch(Throwable $th){
+            dd($th);
+            return redirect('/input/baloks/')->with(['message'=> 'Gagal hapus baloks', 'success'=>false]);
+        }
     }
 }

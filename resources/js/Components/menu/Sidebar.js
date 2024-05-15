@@ -12,7 +12,7 @@ export default function Sidebar() {
                             <Link href="/input/expanders">Expander</Link>
                         </li>
                         <li>
-                            <Link href="/input/inject">Inject</Link>
+                            <Link href="/input/injects">Inject</Link>
                         </li>
                         <li>
                             <Link href="/input/baloks">Balok</Link>

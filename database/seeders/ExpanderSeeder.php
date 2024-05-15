@@ -10,6 +10,6 @@ class ExpanderSeeder extends Seeder
     public function run()
     {
         // Buat beberapa record expander dengan data palsu
-        Expander::factory()->count(5)->create();
+        Expander::factory()->count(10)->create();
     }
 }

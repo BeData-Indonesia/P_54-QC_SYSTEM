@@ -15,16 +15,15 @@ class Balok extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'shif',
         'density',
         'jumlah_balok',
         'berat_kg',
         'keterangan',
-        'kode_bahan',
+        'type',
     ];
 
     public function expander()
     {
-        return $this->belongsTo(Expander::class, 'kode_bahan', 'kode_bahan');
+        return $this->belongsTo(Expander::class, 'type', 'kode_bahan');
     }
 }

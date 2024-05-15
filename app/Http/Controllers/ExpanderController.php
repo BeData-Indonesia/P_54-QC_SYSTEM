@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ExpandersCollection;
+use App\Http\Resources\DataCollection;
 use Illuminate\Http\Request;
 use App\Models\Expander;
 use Inertia\Inertia;
@@ -11,7 +11,7 @@ class ExpanderController extends Controller
 {
     public function index()
     {
-        $expanders = new ExpandersCollection(Expander::paginate(10));
+        $expanders = new DataCollection(Expander::paginate(10));
         return Inertia::render('Input/Expander',['expanders'=>$expanders]);
     }
 

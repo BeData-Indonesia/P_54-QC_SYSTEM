@@ -3,7 +3,7 @@ import { Head, useForm } from "@inertiajs/inertia-react";
 import Authenticated from "@/Layouts/Authenticated";
 import Input from "@/Components/Form/Input";
 import Button from "@/Components/Button";
-import Select from "@/Components/Form/Select";
+import Select from "@/Components/Form/SelectInput";
 
 export default function EditExpander(props) {
     console.log(props);

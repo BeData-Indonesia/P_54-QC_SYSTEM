@@ -15,21 +15,21 @@ class Inject extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'shif',
+    
         'spasi',
         'nama_barang',
         'counter',
         'hasil',
-        'ruas',
+        'rusak',
         'cycle_time',
         'aging_time',
         'berat_kering',
         'keterangan',
-        'kode_bahan',
+        'type',
     ];
 
     public function expander()
     {
-        return $this->belongsTo(Expander::class, 'kode_bahan', 'kode_bahan');
+        return $this->belongsTo(Expander::class, 'type', 'kode_bahan');
     }
 }

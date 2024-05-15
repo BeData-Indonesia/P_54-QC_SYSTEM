@@ -25,7 +25,7 @@ class Expander extends Model
         'keterangan',
     ];
 
-    // Define relationships if any
+
     public function injects()
     {
         return $this->hasMany(Inject::class, 'kode_bahan', 'kode_bahan');
