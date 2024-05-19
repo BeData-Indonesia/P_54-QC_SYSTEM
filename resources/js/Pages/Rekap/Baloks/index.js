@@ -100,8 +100,6 @@ export default function Rekapbaloks(props) {
                             value={props?.waste_produksi}
                         />
                     </div>
-                    {/* filter */}
-
                     <TableRekapBalok
                         rows={rekap}
                         onDetail={(id) => {

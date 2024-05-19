@@ -32,7 +32,7 @@ export default function CreateExpander(props) {
         <Authenticated auth={props.auth} errors={props.errors}>
             <Head title="Dashboard" />
             <DashboardLayout>
-                <div className=" text-xl font-bold my-8">Inject Expander</div>
+                <div className=" text-xl font-bold my-8">Input Expander</div>
                 <FormExpander
                     data={data}
                     errors={errors}

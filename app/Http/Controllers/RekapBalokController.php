@@ -50,9 +50,6 @@ class RekapBalokController extends Controller
 
             function getWasteProduksi ($bahan,$hasil){
                 $waste = $bahan-$hasil;
-                if($waste<0){
-                    return 0;
-                }
                 return $waste;
             }
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\BalokController;
 use App\Http\Controllers\ExpanderController;
 use App\Http\Controllers\InjectController;
 use App\Http\Controllers\RekapBalokController;
+use App\Http\Controllers\RekapInjectController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -21,12 +22,13 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return redirect('/input/expanders/');
+    // return Inertia::render('Welcome', [
+    //     'canLogin' => Route::has('login'),
+    //     'canRegister' => Route::has('register'),
+    //     'laravelVersion' => Application::VERSION,
+    //     'phpVersion' => PHP_VERSION,
+    // ]);
 });
 
 Route::get('/dashboard', function () {
@@ -68,6 +70,10 @@ Route::prefix('rekap')->middleware(['auth', 'verified'])->name('dashboard')->gro
     Route::prefix('baloks')->group(function () {
         Route::get('/',[RekapBalokController::class,'index'])->name('rekap.balok.index');
         Route::get('/detail/{id}',[RekapBalokController::class,'detail'])->name('rekap.balok.detail');
+    });
+    Route::prefix('injects')->group(function () {
+        Route::get('/',[RekapInjectController::class,'index'])->name('rekap.inject.index');
+        Route::get('/detail/{id}',[RekapInjectController::class,'detail'])->name('rekap.inject.detail');
     });
    
 });

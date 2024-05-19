@@ -13,6 +13,17 @@ export const getTotalBeratBalokFormExpander = (row) => {
     }, 0);
     return totalBagus;
 };
+export const getTotalBeratInjectFormExpander = (row) => {
+    if (row.length < 1) {
+        return 0;
+    }
+    const totalBagus = row.reduce((accumulator, currenrValue) => {
+        return (
+            accumulator + currenrValue["berat_kering"] * currenrValue["bagus"]
+        );
+    }, 0);
+    return totalBagus;
+};
 export const getTotalBagusBalok = (row) => {
     if (row.length < 1) {
         return 0;
@@ -22,6 +33,25 @@ export const getTotalBagusBalok = (row) => {
     }, 0);
     return totalBagus;
 };
+export const getTotalBagusinject = (row) => {
+    if (row.length < 1) {
+        return 0;
+    }
+    const totalBagus = row.reduce((accumulator, currenrValue) => {
+        return accumulator + currenrValue["bagus"];
+    }, 0);
+    return totalBagus;
+};
+export const getTotalRusakinject = (row) => {
+    if (row.length < 1) {
+        return 0;
+    }
+    const totalBagus = row.reduce((accumulator, currenrValue) => {
+        return accumulator + currenrValue["rusak"];
+    }, 0);
+    return totalBagus;
+};
+
 export const getBeratProdukbalok = (row) => {
     if (row.length < 1) {
         return 0;
