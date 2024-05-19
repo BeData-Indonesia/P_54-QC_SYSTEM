@@ -14,15 +14,18 @@ class CreateExpanderTable extends Migration
     public function up()
     {
         Schema::create('expander', function (Blueprint $table) {
-            $table->string('kode_bahan')->primary();
+            $table->increments('no_expander');
+            $table->string('kode_bahan')->unique();
             $table->timestamps();
             $table->integer('shift');
+            $table->string('jenis_bahan');
             $table->float('banyak_kg');
             $table->integer('no_silo');
             $table->string('untuk_produk');
             $table->float('berat_jenis');
             $table->float('density');
             $table->text('keterangan');
+            $table->date('date');
         });
     }
 

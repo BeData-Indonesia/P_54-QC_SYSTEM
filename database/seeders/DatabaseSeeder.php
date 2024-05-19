@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('admin'),
         ]);
         $this->call([
-            ExpanderSeeder::class,
+            // ExpanderSeeder::class,
             // InjectSeeder::class,
             // BalokSeeder::class,
         ]);

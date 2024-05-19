@@ -20,10 +20,11 @@ class Balok extends Model
         'berat_kg',
         'keterangan',
         'type',
+        'date',
     ];
 
     public function expander()
     {
-        return $this->belongsTo(Expander::class, 'type', 'kode_bahan');
+        return $this->belongsTo(Expander::class, 'type', 'no_expander');
     }
 }

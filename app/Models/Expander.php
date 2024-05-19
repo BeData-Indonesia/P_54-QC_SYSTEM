@@ -23,16 +23,18 @@ class Expander extends Model
         'berat_jenis',
         'density',
         'keterangan',
+        'jenis_bahan',
+        'date'
     ];
 
 
     public function injects()
     {
-        return $this->hasMany(Inject::class, 'kode_bahan', 'kode_bahan');
+        return $this->hasMany(Inject::class, 'type', 'no_expander');
     }
 
     public function baloks()
     {
-        return $this->hasMany(Balok::class, 'kode_bahan', 'kode_bahan');
+        return $this->hasMany(Balok::class, 'type', 'no_expander');
     }
 }

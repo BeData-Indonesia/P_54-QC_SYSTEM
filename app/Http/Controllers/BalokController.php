@@ -20,15 +20,37 @@ class BalokController extends Controller
 
     public function create()
     {
-        $expanders = Expander::all();
+        
+        
+        $expanders = Expander::where('jenis_bahan','balok')->get();
         return Inertia::render('Input/Balok/Create',['expanders'=>$expanders]);
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+       
+        $validatedRequest = $request->validate([
+            'density' => 'required|numeric',
+            'jumlah_balok' => 'required|integer',
+            'berat_kg' => 'required|numeric',
+            'keterangan' => 'nullable|string',
+            'type' => 'required|exists:expander,no_expander',
+            'date' => 'required|date',
+        ], [
+            'density.required' => 'Density wajib diisi.',
+            'density.numeric' => 'Density harus berupa angka.',
+            'jumlah_balok.required' => 'Jumlah balok wajib diisi.',
+            'jumlah_balok.integer' => 'Jumlah balok harus berupa angka.',
+            'berat_kg.required' => 'Berat kg wajib diisi.',
+            'berat_kg.numeric' => 'Berat kg harus berupa angka.',
+            'keterangan.string' => 'Keterangan harus berupa teks.',
+            'type.required' => 'Type wajib diisi.',
+            'type.integer' => 'Type harus berupa angka.',
+            'type.exists' => 'Type tidak valid.',
+            'date.required' => 'Tanggal wajib diisi.',
+            'date.date' => 'Tanggal harus berupa tanggal yang valid.',
         ]);
-        Balok::create($request->all());
+        Balok::create($validatedRequest);
         return redirect('/input/baloks')->with(['message'=> 'Berhasil create balok', 'success'=>true]);
     }
 
@@ -47,7 +69,7 @@ class BalokController extends Controller
             $id = $lastSegment;
     
             $balok = Balok::find($id);
-            $expanders = Expander::all();
+            $expanders = Expander::where('jenis_bahan','balok')->get();
     
             return Inertia::render('Input/Balok/Edit',['balok'=>$balok,'expanders'=>$expanders]);
             } catch (\Throwable $th) {

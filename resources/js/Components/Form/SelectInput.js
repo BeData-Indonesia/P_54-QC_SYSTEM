@@ -13,6 +13,7 @@ export default function SelectInput({
     labelPosition = "vertical",
     value,
     defaultValue,
+    errors,
     ...props
 }) {
     return (
@@ -27,16 +28,22 @@ export default function SelectInput({
                         <span className="label-text">{label}</span>
                     </div>
                 )}
-
-                {
-                    <Select
-                        className=" w-full max-w-xs"
-                        options={options}
-                        onChange={onChange}
-                        defaultValue={defaultValue}
-                        {...props}
-                    />
-                }
+                <div className="w-full  relative">
+                    {
+                        <Select
+                            className=" w-full max-w-xs"
+                            options={options}
+                            onChange={onChange}
+                            defaultValue={defaultValue}
+                            {...props}
+                        />
+                    }
+                    {errors && (
+                        <div className=" px-2 mt-1 absolute text-sm text-red-600">
+                            {errors}
+                        </div>
+                    )}
+                </div>
             </label>
         </>
     );

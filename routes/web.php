@@ -3,6 +3,7 @@
 use App\Http\Controllers\BalokController;
 use App\Http\Controllers\ExpanderController;
 use App\Http\Controllers\InjectController;
+use App\Http\Controllers\RekapBalokController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -38,12 +39,12 @@ Route::get('/dashboard', function () {
 
 Route::prefix('input')->middleware(['auth', 'verified'])->name('dashboard')->group(function(){
     Route::prefix('expanders')->group(function () {
-        Route::get('/',[ExpanderController::class,'index'])->name('expanders.index');
         Route::get('/create', [ExpanderController::class, 'create'])->name('expanders.create');
-        Route::get('/edit/{expander}', [ExpanderController::class, 'edit'])->name('expanders.edit');
-        Route::put('/edit/{expander}', [ExpanderController::class, 'update'])->name('expanders.update');
         Route::post('/create', [ExpanderController::class, 'store'])->name('expanders.store');
-        Route::delete('/{expander}', [ExpanderController::class, 'destroy'])->name('expanders.destroy');
+        Route::get('/edit/{id}', [ExpanderController::class, 'edit'])->name('expanders.edit');
+        Route::put('/edit/{id}', [ExpanderController::class, 'update'])->name('expanders.update');
+        Route::delete('/{id}', [ExpanderController::class, 'destroy'])->name('expanders.destroy');
+        Route::get('/',[ExpanderController::class,'index'])->name('expanders.index');
     });
     Route::prefix('injects')->group(function () {
         Route::get('/',[InjectController::class,'index'])->name('inject.index');
@@ -60,8 +61,15 @@ Route::prefix('input')->middleware(['auth', 'verified'])->name('dashboard')->gro
         Route::delete('/{baloks}',[BalokController::class,'destroy'])->name('balok.destroy');
         Route::get('/edit/{baloks}',[BalokController::class,'edit'])->name('balok.edit');
         Route::put('/edit/{baloks}',[BalokController::class,'update'])->name('balok.update');
-       
     });
+});
+
+Route::prefix('rekap')->middleware(['auth', 'verified'])->name('dashboard')->group(function(){
+    Route::prefix('baloks')->group(function () {
+        Route::get('/',[RekapBalokController::class,'index'])->name('rekap.balok.index');
+        Route::get('/detail/{id}',[RekapBalokController::class,'detail'])->name('rekap.balok.detail');
+    });
+   
 });
 
 

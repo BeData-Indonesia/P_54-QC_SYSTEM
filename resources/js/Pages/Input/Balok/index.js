@@ -31,7 +31,11 @@ export default function Balok(props) {
         setModalDeleteOpen(false);
     };
     return (
-        <Authenticated auth={props.auth} errors={props.errors}>
+        <Authenticated
+            auth={props.auth}
+            errors={props.errors}
+            status={props.status}
+        >
             <Head title="Dashboard" />
             <DashboardLayout>
                 <h2 className=" text-xl font-bold">Balok</h2>

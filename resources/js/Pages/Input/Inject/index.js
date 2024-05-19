@@ -8,6 +8,7 @@ import { Inertia } from "@inertiajs/inertia";
 import Pagination from "@/Components/Pagination/Pagination";
 export default function Inject(props) {
     const { injects } = props;
+    console.log(injects);
     const [modalDeleteOpen, setModalDeleteOpen] = React.useState(false);
     const [idDelete, setIdDelete] = React.useState();
     const onDeleteRow = (id) => {
@@ -31,7 +32,11 @@ export default function Inject(props) {
         setModalDeleteOpen(false);
     };
     return (
-        <Authenticated auth={props.auth} errors={props.errors}>
+        <Authenticated
+            auth={props.auth}
+            errors={props.errors}
+            status={props.status}
+        >
             <Head title="Dashboard" />
             <DashboardLayout>
                 <h2 className=" text-xl font-bold">Inject</h2>

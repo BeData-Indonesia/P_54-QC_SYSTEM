@@ -25,10 +25,10 @@ export default function Sidebar() {
                     <summary>Rekap</summary>
                     <ul>
                         <li>
-                            <a>Submenu 1</a>
+                            <Link href="/rekap/baloks">Balok</Link>
                         </li>
                         <li>
-                            <a>Submenu 2</a>
+                            <Link href="/rekap/injects">Inject</Link>
                         </li>
                     </ul>
                 </details>

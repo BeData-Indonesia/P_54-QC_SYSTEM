@@ -8,3 +8,14 @@ export const formatDate = (dateString) => {
     const formattedDate = `${day}-${month}-${year}`;
     return formattedDate;
 };
+
+export const getLabelFromValue = (options, value) => {
+    let label = "";
+    options.forEach((option) => {
+        if (option.value === value) {
+            label = option.label;
+        }
+    });
+
+    return label;
+};

@@ -11,6 +11,7 @@ export default function Input({
     value,
     onChange,
     disabled = false,
+    errors,
     labelPosition = "vertical",
     ...props
 }) {
@@ -18,7 +19,7 @@ export default function Input({
         <>
             <label
                 className={classNames(
-                    "form-control w-full  flex flex-row my-4 "
+                    "form-control w-full  flex flex-row my-4 h-20 items-center"
                 )}
             >
                 {checkNotNullOrEmpty && (
@@ -26,34 +27,41 @@ export default function Input({
                         <span className="label-text">{label}</span>
                     </div>
                 )}
-                {type == "text-area" ? (
-                    <textarea
-                        disabled={disabled}
-                        value={value}
-                        onChange={onChange}
-                        cols={8}
-                        type={type}
-                        placeholder={placeholder}
-                        className={classNames(
-                            "input input-bordered w-full ",
-                            `input-${size}`
-                        )}
-                        {...props}
-                    />
-                ) : (
-                    <input
-                        disabled={disabled}
-                        value={value}
-                        onChange={onChange}
-                        type={type}
-                        placeholder={placeholder}
-                        className={classNames(
-                            "input input-bordered w-full ",
-                            `input-${size}`
-                        )}
-                        {...props}
-                    />
-                )}
+                <div className="w-full  relative">
+                    {type == "text-area" ? (
+                        <textarea
+                            disabled={disabled}
+                            value={value}
+                            onChange={onChange}
+                            cols={8}
+                            type={type}
+                            placeholder={placeholder}
+                            className={classNames(
+                                "input input-bordered w-full ",
+                                `input-${size}`
+                            )}
+                            {...props}
+                        />
+                    ) : (
+                        <input
+                            disabled={disabled}
+                            value={value}
+                            onChange={onChange}
+                            type={type}
+                            placeholder={placeholder}
+                            className={classNames(
+                                "input input-bordered w-full ",
+                                `input-${size}`
+                            )}
+                            {...props}
+                        />
+                    )}
+                    {errors && (
+                        <div className=" px-2 mt-1 absolute text-sm text-red-600">
+                            {errors}
+                        </div>
+                    )}
+                </div>
             </label>
         </>
     );

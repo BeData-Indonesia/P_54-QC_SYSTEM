@@ -15,7 +15,7 @@ export default function TableExpander({ rows, onDelete, onEdit }) {
         "Berat Jenis",
         "Density",
         "Keterangan",
-        "Created at",
+        "Date",
         "Action",
     ];
 
@@ -37,13 +37,13 @@ export default function TableExpander({ rows, onDelete, onEdit }) {
                             <td className="truncate max-w-11">
                                 {row["keterangan"]}
                             </td>
-                            <td>{formatDate(row["created_at"])}</td>
+                            <td>{formatDate(row["date"])}</td>
                             <td>
                                 <div className=" flex gap-3">
                                     <div
                                         className=" cursor-pointer"
                                         onClick={() =>
-                                            onDelete(row["kode_bahan"])
+                                            onDelete(row["no_expander"])
                                         }
                                     >
                                         <MdDelete size={24} color="red" />
@@ -51,7 +51,7 @@ export default function TableExpander({ rows, onDelete, onEdit }) {
                                     <div
                                         className="cursor-pointer"
                                         onClick={() => {
-                                            onEdit(row["kode_bahan"]);
+                                            onEdit(row["no_expander"]);
                                         }}
                                     >
                                         <FaEdit size={24} color="blue" />

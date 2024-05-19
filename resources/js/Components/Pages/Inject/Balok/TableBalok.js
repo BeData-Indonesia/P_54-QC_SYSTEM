@@ -26,6 +26,7 @@ export default function TableBalok({ rows, onDelete, onEdit }) {
                         <td>{row["density"]}</td>
                         <td>{row["jumlah_balok"]}</td>
                         <td>{row["berat_kg"]}</td>
+                        <td>{row["date"]}</td>
                         <td className="truncate max-w-11">
                             {row["keterangan"]}
                         </td>

@@ -19,9 +19,10 @@ class CreateBalokTable extends Migration
             $table->integer('jumlah_balok');
             $table->float('berat_kg');
             $table->text('keterangan');
-            $table->string('type');
-            $table->foreign('type')->references('kode_bahan')->on('expander')->onDelete('cascade');
+            $table->unsignedInteger('type');
             $table->timestamps();
+            $table->date('date');
+            $table->foreign('type')->references('no_expander')->on('expander')->onDelete('cascade');
         });
     }
 

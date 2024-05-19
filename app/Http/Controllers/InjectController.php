@@ -13,22 +13,53 @@ class InjectController extends Controller
 {
     public function index()
     {
-        $injects = new DataCollection(Inject::paginate(10));
+        $injects = new DataCollection(Inject::with('expander')->paginate(10));
 
         return Inertia::render('Input/Inject',['injects'=>$injects]);
     }
 
     public function create()
     {
-        $expanders = Expander::all();
+        $expanders = Expander::where('jenis_bahan','inject')->get();
         return Inertia::render('Input/Inject/Create',['expanders'=>$expanders]);
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validateReq = $request->validate([
+            'type' => 'required|integer|exists:expander,no_expander',
+            'spasi' => 'required|integer',
+           
+            'bagus' => 'required|integer',
+            'rusak' => 'required|integer',
+            'cycle_time' => 'required|integer',
+            'aging_time' => 'required|integer',
+            'berat_kering' => 'required|numeric',
+            'keterangan' => 'nullable|string',
+            'date' => 'required|date',
+        ], [
+            'type.required' => 'Type wajib diisi.',
+            'type.integer' => 'Type harus berupa angka.',
+            'type.exists' => 'Type tidak valid.',
+            'spasi.required' => 'Spasi wajib diisi.',
+            'spasi.integer' => 'Spasi harus berupa angka.',
+          
+            'bagus.required' => 'Bagus wajib diisi.',
+            'bagus.integer' => 'Bagus harus berupa angka.',
+            'rusak.required' => 'Rusak wajib diisi.',
+            'rusak.integer' => 'Rusak harus berupa angka.',
+            'cycle_time.required' => 'Cycle time wajib diisi.',
+            'cycle_time.integer' => 'Cycle time harus berupa angka.',
+            'aging_time.required' => 'Aging time wajib diisi.',
+            'aging_time.integer' => 'Aging time harus berupa angka.',
+            'berat_kering.required' => 'Berat kering wajib diisi.',
+            'berat_kering.numeric' => 'Berat kering harus berupa angka.',
+            'keterangan.string' => 'Keterangan harus berupa teks.',
+            'date.required' => 'Tanggal wajib diisi.',
+            'date.date' => 'Tanggal harus berupa tanggal yang valid.',
         ]);
-        Inject::create($request->all());
+        
+        Inject::create($validateReq);
         return redirect('/input/injects')->with(['message'=> 'Berhasil create inject', 'success'=>true]);
     }
 
@@ -46,8 +77,7 @@ class InjectController extends Controller
             $id = $lastSegment;
     
             $inject = Inject::find($id);
-            $expanders = Expander::all();
-    
+            $expanders = Expander::where('jenis_bahan','inject')->get();
             return Inertia::render('Input/Inject/Edit/',['inject'=>$inject,'expanders'=>$expanders]);
             } catch (\Throwable $th) {
                 return redirect()->with(['message'=> 'Gagal menuju halam edit expander', 'success'=>false]);
@@ -57,11 +87,40 @@ class InjectController extends Controller
     public function update(Request $request, Inject $inject)
     {
         try{
-            $request->validate([
+            $validateReq = $request->validate([
+                'type' => 'required|integer|exists:expander,no_expander',
+                'spasi' => 'required|integer',
                
+                'bagus' => 'required|integer',
+                'rusak' => 'required|integer',
+                'cycle_time' => 'required|integer',
+                'aging_time' => 'required|integer',
+                'berat_kering' => 'required|numeric',
+                'keterangan' => 'nullable|string',
+                'date' => 'required|date',
+            ], [
+                'type.required' => 'Type wajib diisi.',
+                'type.integer' => 'Type harus berupa angka.',
+                'type.exists' => 'Type tidak valid.',
+                'spasi.required' => 'Spasi wajib diisi.',
+                'spasi.integer' => 'Spasi harus berupa angka.',
+              
+                'bagus.required' => 'Bagus wajib diisi.',
+                'bagus.integer' => 'Bagus harus berupa angka.',
+                'rusak.required' => 'Rusak wajib diisi.',
+                'rusak.integer' => 'Rusak harus berupa angka.',
+                'cycle_time.required' => 'Cycle time wajib diisi.',
+                'cycle_time.integer' => 'Cycle time harus berupa angka.',
+                'aging_time.required' => 'Aging time wajib diisi.',
+                'aging_time.integer' => 'Aging time harus berupa angka.',
+                'berat_kering.required' => 'Berat kering wajib diisi.',
+                'berat_kering.numeric' => 'Berat kering harus berupa angka.',
+                'keterangan.string' => 'Keterangan harus berupa teks.',
+                'date.required' => 'Tanggal wajib diisi.',
+                'date.date' => 'Tanggal harus berupa tanggal yang valid.',
             ]);
     
-            $inject->update($request->all());
+            $inject->update($validateReq);
     
             return redirect('/input/injects')->with(['message'=> 'Berhasil update inject', 'success'=>true]);
         }

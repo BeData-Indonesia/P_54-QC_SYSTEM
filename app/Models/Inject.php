@@ -17,19 +17,18 @@ class Inject extends Model
     protected $fillable = [
     
         'spasi',
-        'nama_barang',
-        'counter',
-        'hasil',
+        'bagus',
         'rusak',
         'cycle_time',
         'aging_time',
         'berat_kering',
         'keterangan',
         'type',
+        'date',
     ];
 
     public function expander()
     {
-        return $this->belongsTo(Expander::class, 'type', 'kode_bahan');
+        return $this->belongsTo(Expander::class, 'type', 'no_expander');
     }
 }

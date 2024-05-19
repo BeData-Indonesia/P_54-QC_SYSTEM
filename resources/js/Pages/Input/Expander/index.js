@@ -5,7 +5,7 @@ import TableExpander from "@/Components/Pages/Inject/Expander/TablesExpander";
 import Pagination from "@/Components/Pagination/Pagination";
 import ModalDelete from "@/Components/Modal/ModalDelete";
 import { Inertia } from "@inertiajs/inertia";
-import DashboardLayout from "../../../Layouts/DashboardLayout";
+import DashboardLayout from "@/Layouts/DashboardLayout";
 export default function Expander(props) {
     const modalDeleteRef = React.useRef(null);
     const [modalDeleteOpen, setModalDeleteOpen] = React.useState(false);
@@ -31,7 +31,6 @@ export default function Expander(props) {
         setIdDelete(null);
         setModalDeleteOpen(false);
     };
-    console.log(props);
     return (
         <Authenticated
             auth={props.auth}
