@@ -9,24 +9,21 @@ import FormExpander from "../../../../Components/Pages/Inject/Expander/FormExpan
 
 export default function CreateExpander(props) {
     const { errors, post, data, setData } = useForm({
-        kode_bahan: "A08/01",
-        banyak_kg: 4000,
-        no_silo: 2,
-        shift: 1,
-        untuk_produk: "BALOK D - 14  103 CM  ( 38 - 40 )",
+        kode_bahan: "",
+        banyak_kg: null,
+        no_silo: null,
+        shift: null,
+        untuk_produk: "",
         jenis_bahan: "",
-        berat_jenis: 10.8,
-        density: 10.8,
-        keterangan: "Tidak ada",
+        berat_jenis: null,
+        density: null,
+        keterangan: "",
         date: "",
     });
     const handleSubmit = (e) => {
         e.preventDefault();
         post("/input/expanders/create");
     };
-    React.useEffect(() => {
-        console.log({ data });
-    }, [data]);
 
     return (
         <Authenticated auth={props.auth} errors={props.errors}>

@@ -197,12 +197,9 @@ export default function Authenticated({ auth, header, children, status }) {
                         hideProgressBar={false}
                         newestOnTop={false}
                         closeOnClick
-                        // rtl={false}
                         pauseOnFocusLoss
-                        // draggable
                         pauseOnHover
                         theme="light"
-                        // transition="Bounce"
                     />
                 </div>
             </main>

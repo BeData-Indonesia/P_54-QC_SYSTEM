@@ -5,6 +5,9 @@ export default function Sidebar() {
     return (
         <ul className="menu  bg-base-200 w-56 min-h-screen">
             <li>
+                <Link href="/products">Product</Link>
+            </li>
+            <li>
                 <details open>
                     <summary>Input</summary>
                     <ul>

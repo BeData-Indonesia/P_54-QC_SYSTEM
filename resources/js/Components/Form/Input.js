@@ -37,7 +37,7 @@ export default function Input({
                             type={type}
                             placeholder={placeholder}
                             className={classNames(
-                                "input input-bordered w-full ",
+                                "input input-bordered w-full py-2 ",
                                 `input-${size}`
                             )}
                             {...props}
@@ -51,13 +51,13 @@ export default function Input({
                             placeholder={placeholder}
                             className={classNames(
                                 "input input-bordered w-full ",
-                                `input-${size}`
+                                `input-${size}` + className
                             )}
                             {...props}
                         />
                     )}
                     {errors && (
-                        <div className=" px-2 mt-1 absolute text-sm text-red-600">
+                        <div className="px-2 mt-1 absolute text-sm text-red-600">
                             {errors}
                         </div>
                     )}

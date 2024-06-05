@@ -16,16 +16,16 @@ export default function CreateInject(props) {
     };
     let optionExpander = mappingOption();
     const { errors, post, data, setData } = useForm({
-        spasi: 1,
-        nama_barang: "BOX WAWAN BSR ( 150 - 155 )",
+        spasi: null,
+        nama_barang: "",
         type: "",
-        total: 1808,
-        bagus: 1792,
-        rusak: 16,
-        cycle_time: 10,
-        aging_time: 22,
-        berat_kering: 21,
-        keterangan: "tidak ada",
+        total: null,
+        bagus: null,
+        rusak: null,
+        cycle_time: null,
+        aging_time: null,
+        berat_kering: null,
+        keterangan: "",
         date: "",
     });
     const handleSubmit = (e) => {
@@ -33,11 +33,6 @@ export default function CreateInject(props) {
 
         post("/input/injects/create", data);
     };
-
-    React.useEffect(() => {
-        console.log(optionExpander);
-        console.log(data);
-    }, [data]);
 
     return (
         <Authenticated auth={props.auth} errors={props.errors}>

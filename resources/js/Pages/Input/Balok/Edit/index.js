@@ -30,10 +30,6 @@ export default function EditBalok(props) {
         put(`/input/baloks/edit/${balok.no_balok}`, data);
     };
 
-    React.useEffect(() => {
-        console.log(data);
-    }, [data]);
-
     return (
         <Authenticated auth={props.auth} errors={props.errors}>
             <Head title="Dashboard" />

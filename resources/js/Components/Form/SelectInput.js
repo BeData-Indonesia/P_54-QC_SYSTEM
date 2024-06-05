@@ -35,6 +35,7 @@ export default function SelectInput({
                             options={options}
                             onChange={onChange}
                             defaultValue={defaultValue}
+                            placeholder={placeholder || "Choose option"}
                             {...props}
                         />
                     }

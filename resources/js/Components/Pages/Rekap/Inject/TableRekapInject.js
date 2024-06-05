@@ -22,8 +22,6 @@ export default function TableRekapInject({ rows, onDetail }) {
         "Action",
     ];
 
-    console.log(rows);
-
     return (
         <Table header={headerTableInject}>
             {rows.map((row) => {

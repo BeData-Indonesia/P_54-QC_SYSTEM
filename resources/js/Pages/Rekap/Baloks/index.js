@@ -1,13 +1,14 @@
 import React from "react";
 import Authenticated from "@/Layouts/Authenticated";
-import { Head, Link, useForm, usePage } from "@inertiajs/inertia-react";
+import { Head, useForm } from "@inertiajs/inertia-react";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import TableRekapBalok from "@/Components/Pages/Rekap/Balok/TableRekapBalok";
 import CardDashboard from "@/Components/Card/CardDashboard";
-import SelectInput from "../../../Components/Form/SelectInput";
-import { optionsBulan, optionsTahun } from "../../../Const";
+import SelectInput from "@/Components/Form/SelectInput";
+import { optionsBulan, optionsTahun } from "@/Const";
 import queryString from "query-string";
 import { toNumber } from "lodash";
+import Button from "@/Components/Button";
 
 export default function Rekapbaloks(props) {
     const { get } = useForm();
@@ -47,13 +48,16 @@ export default function Rekapbaloks(props) {
         }
         return { label: value, value: value };
     };
-    console.log(getDefaultValueBulan(getParamsbyKey("bulan")));
+
     return (
         <Authenticated auth={props.auth} errors={props.errors}>
             <Head title="Dashboard" />
             <DashboardLayout>
                 <div className=" flex flex-col gap-6">
-                    <h2 className=" text-xl font-bold my-2">Rekap Balok</h2>
+                    <div className=" flex justify-between">
+                        <h2 className=" text-xl font-bold my-2">Rekap Balok</h2>
+                        <Button>Export</Button>
+                    </div>
                     <div className=" flex">
                         <SelectInput
                             defaultValue={getDefaultValueBulan(
@@ -98,6 +102,12 @@ export default function Rekapbaloks(props) {
                             title="Waste Produksi"
                             unit={"Kg"}
                             value={props?.waste_produksi}
+                        />
+                        <CardDashboard
+                            // percent={10}
+                            title="Persentase Waste Produksi"
+                            unit={"%"}
+                            value={props?.waste_production_percent}
                         />
                     </div>
                     <TableRekapBalok

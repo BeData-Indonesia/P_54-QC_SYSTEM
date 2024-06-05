@@ -9,9 +9,21 @@ use Inertia\Inertia;
 
 class ExpanderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $expanders = new DataCollection(Expander::paginate(10));
+
+        $search = $request->input('search');
+        $expandersQuery = Expander::query();
+
+        if ($search) {
+            $expandersQuery->where(function($query) use ($search) {
+            $query->where('untuk_produk', 'like', '%' . $search . '%')
+                ->orWhere('kode_bahan', 'like', '%' . $search . '%')
+                ->orWhere('keterangan', 'like', '%' . $search . '%'); 
+            });
+        }
+
+        $expanders = new DataCollection($expandersQuery->paginate(10));
         return Inertia::render('Input/Expander',['expanders'=>$expanders]);
     }
 
@@ -92,8 +104,7 @@ class ExpanderController extends Controller
     }
 
     public function update(Request $request, Expander $expander)
-    {
-      
+    {     
         $validatedData = $request->validate([
             'shift' => 'required|integer',
             'banyak_kg' => 'required|numeric',
@@ -141,12 +152,12 @@ class ExpanderController extends Controller
 
     public function destroy(Request $request)
     {
-         $fullPath = $request->path();
-         $segments = explode('/', $fullPath);
-         $lastSegment = end($segments);
-         $id = $lastSegment;
-         $expander = Expander::where('no_expander',$id)->first();
-         $expander->delete($id);
+        $fullPath = $request->path();
+        $segments = explode('/', $fullPath);
+        $lastSegment = end($segments);
+        $id = $lastSegment;
+        $expander = Expander::where('no_expander',$id)->first();
+        $expander->delete($id);
 
         return redirect('/input/expanders/')->with('success', 'Expander berhasil dihapus!');
     }

@@ -6,6 +6,7 @@ import ModalDelete from "@/Components/Modal/ModalDelete";
 import { Inertia } from "@inertiajs/inertia";
 import Pagination from "@/Components/Pagination/Pagination";
 import TableBalok from "@/Components/Pages/Inject/Balok/TableBalok";
+import Search from "../../../Components/Filter/Search";
 export default function Balok(props) {
     const { baloks } = props;
     const [modalDeleteOpen, setModalDeleteOpen] = React.useState(false);
@@ -39,10 +40,11 @@ export default function Balok(props) {
             <Head title="Dashboard" />
             <DashboardLayout>
                 <h2 className=" text-xl font-bold">Balok</h2>
-                <div className="my-6 flex justify-end">
+                <div className="flex justify-between items-center gap-2">
                     <Link href="/input/baloks/create" className="btn w-24">
                         Create
                     </Link>
+                    <Search />
                 </div>
                 <TableBalok
                     rows={baloks}

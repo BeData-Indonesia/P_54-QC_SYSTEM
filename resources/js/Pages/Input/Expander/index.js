@@ -6,6 +6,7 @@ import Pagination from "@/Components/Pagination/Pagination";
 import ModalDelete from "@/Components/Modal/ModalDelete";
 import { Inertia } from "@inertiajs/inertia";
 import DashboardLayout from "@/Layouts/DashboardLayout";
+import Search from "@/Components/Filter/Search";
 export default function Expander(props) {
     const modalDeleteRef = React.useRef(null);
     const [modalDeleteOpen, setModalDeleteOpen] = React.useState(false);
@@ -40,10 +41,11 @@ export default function Expander(props) {
             <Head title="Dashboard" />
             <DashboardLayout>
                 <h2 className=" text-xl font-bold">Expander</h2>
-                <div className="my-6 flex justify-end">
+                <div className=" flex justify-between items-center gap-2">
                     <Link href="/input/expanders/create" className="btn w-24">
                         Create
                     </Link>
+                    <Search />
                 </div>
                 <TableExpander
                     rows={expanders}

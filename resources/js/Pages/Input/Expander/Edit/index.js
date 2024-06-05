@@ -21,9 +21,6 @@ export default function EditExpander(props) {
         e.preventDefault();
         put(`/input/expanders/edit/${props.data.no_expander}`);
     };
-    React.useEffect(() => {
-        console.log({ data });
-    }, [data]);
 
     return (
         <Authenticated auth={props.auth} errors={props.errors}>

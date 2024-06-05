@@ -18,7 +18,7 @@ export default function FormExpander({
                 name="kode_bahan"
                 label="Kode Bahan"
                 className=""
-                placeholder={"AB2111"}
+                placeholder={"Masukkan kode bahan"}
                 type="text"
                 size="md"
                 errors={errors.kode_bahan}
@@ -30,7 +30,7 @@ export default function FormExpander({
                 name="banyak_kg"
                 label="Banyak KG"
                 className=""
-                placeholder={"0"}
+                placeholder={"Masukkan berat expander"}
                 type="number"
                 size="sm"
                 step="0.01"
@@ -46,7 +46,7 @@ export default function FormExpander({
                 name="shift"
                 label="Shift"
                 className=""
-                placeholder={"0"}
+                placeholder={"tes"}
                 type="number"
                 size="sm"
                 options={[
@@ -71,6 +71,7 @@ export default function FormExpander({
                 placeholder="Masukkan Jenis Bahan"
                 label="Jenis Bahan"
                 name="jenis_bahan"
+                isDisabled={method == "put" && true}
                 options={[
                     { value: "inject", label: "Inject" },
                     { value: "balok", label: "Balok" },
@@ -84,7 +85,7 @@ export default function FormExpander({
                 name="no_silo"
                 label="No silo"
                 className=""
-                placeholder={"1"}
+                placeholder={"Masukkan no silo"}
                 type="text"
                 size="sm"
                 errors={errors.no_silo}
@@ -95,7 +96,7 @@ export default function FormExpander({
                 name="untuk_produk"
                 label="Produk"
                 className=""
-                placeholder={"AAB!"}
+                placeholder={"Masukkan nama produk"}
                 type="text"
                 errors={errors.untuk_produk}
                 size="sm"
@@ -106,7 +107,7 @@ export default function FormExpander({
                 name="berat_jenis"
                 label="Berat Jenis"
                 className=""
-                placeholder={"11.01"}
+                placeholder={"Masukkan berat jenis"}
                 type="number"
                 step="0.01"
                 size="sm"
@@ -118,7 +119,7 @@ export default function FormExpander({
                 name="density"
                 label="Density"
                 className=""
-                placeholder={"11.01"}
+                placeholder={"Masukkan density"}
                 type="number"
                 step="0.01"
                 size="sm"
@@ -144,7 +145,7 @@ export default function FormExpander({
                 name="keterangan"
                 label="Keterangan"
                 className=""
-                placeholder={"Produk A adalah"}
+                placeholder={"Masukkan keterangan (opsional)"}
                 type="text-area"
                 size="sm"
                 errors={errors.keterangan}

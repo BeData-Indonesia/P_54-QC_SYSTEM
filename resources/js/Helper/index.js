@@ -1,3 +1,4 @@
+import queryString from "query-string";
 export function checkNotNullOrEmpty(value) {
     return value !== null && value !== undefined && value !== "";
 }
@@ -57,4 +58,21 @@ export const getBeratProdukbalok = (row) => {
         return 0;
     }
     return row[0]["berat_kg"];
+};
+
+export const setUrl = (key, value, get) => {
+    let url = new URL(window.location.href);
+    let params = new URLSearchParams(url.search);
+    params.set(key, value);
+    url.search = params.toString();
+    get(
+        "/" + params.toString() && "?" + params.toString(),
+        {},
+        { preserveState: true, queryString: params.toString() }
+    );
+};
+
+export const getParamsbyKey = (key) => {
+    let params = queryString.parse(location.search);
+    return params[key];
 };

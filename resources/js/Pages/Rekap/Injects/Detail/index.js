@@ -2,12 +2,10 @@ import React from "react";
 import Authenticated from "@/Layouts/Authenticated";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Head } from "@inertiajs/inertia-react";
-import TableRekapInjectDetail from "../../../../Components/Pages/Rekap/Inject/Detail/TableRekapInjectDetail";
+import TableRekapInjectDetail from "@/Components/Pages/Rekap/Inject/Detail/TableRekapInjectDetail";
 
 export default function index(props) {
     const { injects } = props;
-    console.log(injects);
-
     const onDeleteRow = () => {};
     const onEditRow = () => {};
     return (

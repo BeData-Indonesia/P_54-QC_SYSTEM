@@ -20,7 +20,6 @@ export default function TableInject({ rows, onDelete, onEdit }) {
         "Date",
         "Action",
     ];
-    console.log(rows);
     return (
         <Table header={headerTableInject}>
             {rows.data.map((row) => {

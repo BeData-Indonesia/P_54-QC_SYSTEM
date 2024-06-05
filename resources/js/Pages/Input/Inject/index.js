@@ -6,9 +6,9 @@ import TableInject from "@/Components/Pages/Inject/Inject/TableInject";
 import ModalDelete from "@/Components/Modal/ModalDelete";
 import { Inertia } from "@inertiajs/inertia";
 import Pagination from "@/Components/Pagination/Pagination";
+import Search from "@/Components/Filter/Search";
 export default function Inject(props) {
     const { injects } = props;
-    console.log(injects);
     const [modalDeleteOpen, setModalDeleteOpen] = React.useState(false);
     const [idDelete, setIdDelete] = React.useState();
     const onDeleteRow = (id) => {
@@ -40,10 +40,11 @@ export default function Inject(props) {
             <Head title="Dashboard" />
             <DashboardLayout>
                 <h2 className=" text-xl font-bold">Inject</h2>
-                <div className="my-6 flex justify-end">
+                <div className="flex justify-between items-center gap-2">
                     <Link href="/input/injects/create" className="btn w-24">
                         Create
                     </Link>
+                    <Search />
                 </div>
                 <TableInject
                     rows={injects}

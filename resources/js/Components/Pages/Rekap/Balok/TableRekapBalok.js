@@ -18,8 +18,6 @@ export default function TableRekapBalok({ rows, onDetail }) {
         "Action",
     ];
 
-    console.log(rows);
-
     return (
         <Table header={headerTableInject}>
             {rows.map((row) => {

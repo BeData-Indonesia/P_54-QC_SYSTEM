@@ -12,9 +12,19 @@ use Throwable;
 
 class BalokController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $baloks = new DataCollection(Balok::paginate(10));
+        $search = $request->input('search');
+        $balokQuery = Balok::query();
+    
+        if ($search) {
+            $balokQuery = $balokQuery->whereHas('expander', function ($query) use ($search) {
+                $query->where('untuk_produk', 'like', '%' . $search . '%')
+                ->orWhere('kode_bahan', 'like', '%' . $search . '%');
+            });
+        }
+
+        $baloks = new DataCollection($balokQuery->with('expander')->paginate(10));
         return Inertia::render('Input/Balok',['baloks'=>$baloks]);
     }
 

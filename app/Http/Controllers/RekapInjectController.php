@@ -53,8 +53,12 @@ class RekapInjectController extends Controller
             $beratExpanderInject = totalBeratExpanderInject($rekapExpander);
             $beratInjectTotal = totalBeratHasilInject($rekapExpander);
             $wasteProduksi = getWasteProduksi($beratExpanderInject,$beratInjectTotal);
+            $wasteProductionPercent = 100;
+            if($beratInjectTotal!=0){
+                $wasteProductionPercent= $beratExpanderInject/$beratInjectTotal;
+            }
 
-            return Inertia::render('Rekap/Injects',['rekap'=>$rekapExpander,'total_berat_expander'=>$beratExpanderInject,'total_berat_masak_inject'=>$beratInjectTotal,'waste_produksi'=>$wasteProduksi]);
+            return Inertia::render('Rekap/Injects',['waste_production_percent'=> $wasteProductionPercent ,'rekap'=>$rekapExpander,'total_berat_expander'=>$beratExpanderInject,'total_berat_masak_inject'=>$beratInjectTotal,'waste_produksi'=>$wasteProduksi]);
             
         }
     

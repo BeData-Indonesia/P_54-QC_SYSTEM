@@ -1,11 +1,9 @@
 import * as React from "react";
 import { Head, useForm } from "@inertiajs/inertia-react";
 import Authenticated from "@/Layouts/Authenticated";
-import Input from "@/Components/Form/Input";
-import Button from "@/Components/Button";
+
 import DashboardLayout from "@/Layouts/DashboardLayout";
-import SelectInput from "@/Components/Form/SelectInput";
-import { getLabelFromValue } from "@/Helper/formatDate";
+
 import FormBalok from "../../../../Components/Pages/Inject/Balok/FormBalok";
 
 export default function CreateBalok(props) {
@@ -19,19 +17,15 @@ export default function CreateBalok(props) {
     let optionExpander = mappingOption();
     const { errors, post, data, setData } = useForm({
         type: "",
-        density: 23,
-        jumlah_balok: 24,
-        berat_kg: 5,
-        keterangan: "tidak ada",
+        density: null,
+        jumlah_balok: null,
+        berat_kg: null,
+        keterangan: "",
     });
     const handleSubmit = (e) => {
         e.preventDefault();
         post("/input/baloks/create", data);
     };
-
-    React.useEffect(() => {
-        console.log(data);
-    }, [data]);
 
     return (
         <Authenticated auth={props.auth} errors={props.errors}>

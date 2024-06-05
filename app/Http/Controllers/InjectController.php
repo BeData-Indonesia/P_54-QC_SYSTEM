@@ -11,12 +11,23 @@ use Throwable;
 
 class InjectController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $injects = new DataCollection(Inject::with('expander')->paginate(10));
+        $search = $request->input('search');
+        $injectQuery = Inject::query();
+    
+        if ($search) {
+            $injectQuery = $injectQuery->whereHas('expander', function ($query) use ($search) {
+                $query->where('untuk_produk', 'like', '%' . $search . '%')
+                ->orWhere('kode_bahan', 'like', '%' . $search . '%');
+            });
+        }
 
-        return Inertia::render('Input/Inject',['injects'=>$injects]);
+        $injects = new DataCollection($injectQuery->with('expander')->paginate(10));
+    
+        return Inertia::render('Input/Inject', ['injects' => $injects]);
     }
+    
 
     public function create()
     {

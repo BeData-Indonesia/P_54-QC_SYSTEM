@@ -3,6 +3,7 @@
 use App\Http\Controllers\BalokController;
 use App\Http\Controllers\ExpanderController;
 use App\Http\Controllers\InjectController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RekapBalokController;
 use App\Http\Controllers\RekapInjectController;
 use Illuminate\Foundation\Application;
@@ -36,6 +37,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
+Route::prefix('products')->middleware(['auth','verified'])->group(function(){
+    Route::get('/',[ProductController::class,'get'])->name('product.get');
+});
 
 
 

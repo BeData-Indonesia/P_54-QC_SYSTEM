@@ -1,15 +1,13 @@
 import * as React from "react";
 import { Head, useForm } from "@inertiajs/inertia-react";
 import Authenticated from "@/Layouts/Authenticated";
-import Input from "@/Components/Form/Input";
-import Button from "@/Components/Button";
+
 import DashboardLayout from "@/Layouts/DashboardLayout";
-import SelectInput from "../../../../Components/Form/SelectInput";
-import FormInject from "../../../../Components/Pages/Inject/Inject/FormInject";
+
+import FormInject from "@/Components/Pages/Inject/Inject/FormInject";
 
 export default function EditInject(props) {
     const { inject } = props;
-    console.log(props.expanders);
     const mappingOption = () => {
         const expanders = props.expanders;
         const convertExpanders = expanders.map((expander) => {

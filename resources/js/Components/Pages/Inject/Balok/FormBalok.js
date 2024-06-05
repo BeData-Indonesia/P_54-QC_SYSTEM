@@ -9,7 +9,6 @@ export default function FormBalok({
     data,
     setData,
     errors,
-    method,
     optionExpander,
 }) {
     return (
@@ -39,7 +38,7 @@ export default function FormBalok({
                 name="density"
                 label="Density"
                 className=""
-                placeholder={"Insert density here"}
+                placeholder={"Masukkan density"}
                 step="0.01"
                 type="number"
                 size="md"
@@ -51,7 +50,7 @@ export default function FormBalok({
                 name="jumlah_balok"
                 label="Jumlah Balok"
                 className=""
-                placeholder={1}
+                placeholder={"Masukkan jumlah balok"}
                 type="number"
                 size="sm"
                 errors={errors.jumlah_balok}
@@ -63,7 +62,7 @@ export default function FormBalok({
                 name="berat_kg"
                 label="Berat (kg)"
                 className=""
-                placeholder={"1"}
+                placeholder={"Masukkan total berat balok"}
                 type="number"
                 size="sm"
                 step="0.01"
@@ -86,7 +85,7 @@ export default function FormBalok({
                 name="date"
                 label="Date"
                 className=""
-                placeholder={"Masukkan keterangan"}
+                placeholder={"Masukkan date"}
                 type="date"
                 size="sm"
                 errors={errors.date}

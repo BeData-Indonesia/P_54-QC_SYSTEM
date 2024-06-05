@@ -40,30 +40,19 @@ export default function FormInject({
                 name="spasi"
                 label="Spasi"
                 className=""
-                placeholder={"0"}
+                placeholder={"Masukkan spasi"}
                 type="number"
                 size="md"
                 errors={errors.spasi}
             />
 
-            {/* <Input
-                value={data.total}
-                onChange={(e) => setData("total", e.target.value)}
-                name="total"
-                label="Total"
-                className=""
-                placeholder={23}
-                type="number"
-                size="sm"
-                errors={errors.total}
-            /> */}
             <Input
                 value={data.bagus}
                 onChange={(e) => setData("bagus", e.target.value)}
                 name="bagus"
                 label="Bagus"
                 className=""
-                placeholder={"1"}
+                placeholder={"Masukkan jumlah produk yang bagus"}
                 type="number"
                 size="sm"
                 errors={errors.bagus}
@@ -74,7 +63,7 @@ export default function FormInject({
                 name="rusak"
                 label="Rusak"
                 className=""
-                placeholder={"11"}
+                placeholder={"Masukkan jumlah produk yang rusak"}
                 type="number"
                 size="sm"
                 errors={errors.rusak}
@@ -85,7 +74,7 @@ export default function FormInject({
                 name="cycle_time"
                 label="Cycle Time"
                 className=""
-                placeholder={"11.01"}
+                placeholder={"Masukkan cycle time"}
                 type="number"
                 step="0.01"
                 size="sm"
@@ -97,7 +86,7 @@ export default function FormInject({
                 name="aging_time"
                 label="Aging Time"
                 className=""
-                placeholder={"11.01"}
+                placeholder={"Masukkan aging time"}
                 type="number"
                 step="0.01"
                 size="sm"
@@ -109,7 +98,7 @@ export default function FormInject({
                 name="berat_kering"
                 label="Berat Kering"
                 className=""
-                placeholder={"11.01"}
+                placeholder={"Masukkan berat kering"}
                 type="number"
                 step="0.01"
                 size="sm"
