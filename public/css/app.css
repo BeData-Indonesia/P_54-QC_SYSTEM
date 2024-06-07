@@ -1531,9 +1531,6 @@ html {
     background-position-y: 0;
   }
 }
-.file-input-bordered {
-  --tw-border-opacity: 0.2;
-}
 .file-input:focus {
   outline-style: solid;
   outline-width: 2px;
@@ -2572,6 +2569,9 @@ html {
 }
 .fill-current {
   fill: currentColor;
+}
+.p-0 {
+  padding: 0px;
 }
 .p-2 {
   padding: 0.5rem;

@@ -39,6 +39,7 @@ Route::get('/dashboard', function () {
 
 Route::prefix('products')->middleware(['auth','verified'])->group(function(){
     Route::get('/',[ProductController::class,'get'])->name('product.get');
+    Route::post('/',[ProductController::class,'importFile'])->name('product.post');
 });
 
 

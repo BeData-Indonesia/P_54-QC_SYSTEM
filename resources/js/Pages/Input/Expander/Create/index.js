@@ -1,9 +1,7 @@
 import * as React from "react";
 import { Head, useForm } from "@inertiajs/inertia-react";
 import Authenticated from "@/Layouts/Authenticated";
-import Input from "@/Components/Form/Input";
-import Button from "@/Components/Button";
-import SelectInput from "@/Components/Form/SelectInput";
+
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import FormExpander from "../../../../Components/Pages/Inject/Expander/FormExpander";
 
@@ -35,6 +33,7 @@ export default function CreateExpander(props) {
                     errors={errors}
                     handleSubmit={handleSubmit}
                     setData={setData}
+                    products = {props?.products}
                 />
             </DashboardLayout>
         </Authenticated>

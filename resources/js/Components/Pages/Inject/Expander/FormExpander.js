@@ -2,6 +2,7 @@ import React from "react";
 import Input from "@/Components/Form/Input";
 import Button from "@/Components/Button";
 import SelectInput from "@/Components/Form/SelectInput";
+import { generateValueLabel } from "../../../../Helper";
 
 export default function FormExpander({
     handleSubmit,
@@ -9,7 +10,9 @@ export default function FormExpander({
     setData,
     errors,
     method,
+    products,
 }) {
+    const optionProducts = generateValueLabel('name','name',products)
     return (
         <form onSubmit={handleSubmit}>
             <Input
@@ -41,6 +44,8 @@ export default function FormExpander({
                     label: data.shift,
                     value: data.shift,
                 }}
+                isClearable={true}
+                isSearchable={true}
                 value={data.shift}
                 onChange={(e) => setData("shift", e.value)}
                 name="shift"
@@ -78,6 +83,28 @@ export default function FormExpander({
                 ]}
                 errors={errors.jenis_bahan}
                 value={data.jenis_bahan}
+                />
+                
+            <SelectInput
+                className="basic-single"
+                classNamePrefix="select"
+                defaultValue={{
+                    value: data.untuk_produk,
+                    label: data.untuk_produk,
+                }}
+                onChange={(selectedOption) =>
+                    setData("untuk_produk", selectedOption.value)
+                }
+                isClearable={true}
+                isSearchable={true}
+                placeholder="Masukkan Produk"
+                label="Produk"
+                name="untuk_produk"
+                
+                options={optionProducts}
+                errors={errors.untuk_produk}
+                value={data.untuk_produk}
+                isCreateable={true}
             />
             <Input
                 value={data.no_silo}
@@ -90,17 +117,7 @@ export default function FormExpander({
                 size="sm"
                 errors={errors.no_silo}
             />
-            <Input
-                value={data.untuk_produk}
-                onChange={(e) => setData("untuk_produk", e.target.value)}
-                name="untuk_produk"
-                label="Produk"
-                className=""
-                placeholder={"Masukkan nama produk"}
-                type="text"
-                errors={errors.untuk_produk}
-                size="sm"
-            />
+          
             <Input
                 value={data.berat_jenis}
                 onChange={(e) => setData("berat_jenis", e.target.value)}

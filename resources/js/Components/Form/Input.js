@@ -15,6 +15,70 @@ export default function Input({
     labelPosition = "vertical",
     ...props
 }) {
+    const InputType = ({
+        className,
+        type,
+        placeholder = "Type here...",
+        size = "sm",
+        label,
+        value,
+        onChange,
+        disabled = false,
+        errors,
+        labelPosition = "vertical",
+        ...props
+    }) => {
+        if (type == "text-area") {
+            return (
+                <textarea
+                    disabled={disabled}
+                    value={value}
+                    onChange={onChange}
+                    cols={8}
+                    type={type}
+                    placeholder={placeholder}
+                    className={classNames(
+                        "input input-bordered w-full py-2 ",
+                        `input-${size}`
+                    )}
+                    {...props}
+                />
+            );
+        }
+        if (type == "file") {
+            return (
+                <>
+                    <input
+                        type={type}
+                        className={classNames(
+                            className,
+                            "file-input p-0 w-full max-w-xs"
+                        )}
+                        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                        value={value}
+                        onChange={onChange}
+                        {...props}
+                    />
+                </>
+            );
+        }
+        return (
+            <>
+                <input
+                    disabled={disabled}
+                    value={value}
+                    onChange={onChange}
+                    type={type}
+                    placeholder={placeholder}
+                    className={classNames(
+                        "input input-bordered w-full ",
+                        `input-${size}` + className
+                    )}
+                    {...props}
+                />
+            </>
+        );
+    };
     return (
         <>
             <label
@@ -28,34 +92,18 @@ export default function Input({
                     </div>
                 )}
                 <div className="w-full  relative">
-                    {type == "text-area" ? (
-                        <textarea
-                            disabled={disabled}
-                            value={value}
-                            onChange={onChange}
-                            cols={8}
-                            type={type}
-                            placeholder={placeholder}
-                            className={classNames(
-                                "input input-bordered w-full py-2 ",
-                                `input-${size}`
-                            )}
-                            {...props}
-                        />
-                    ) : (
-                        <input
-                            disabled={disabled}
-                            value={value}
-                            onChange={onChange}
-                            type={type}
-                            placeholder={placeholder}
-                            className={classNames(
-                                "input input-bordered w-full ",
-                                `input-${size}` + className
-                            )}
-                            {...props}
-                        />
-                    )}
+                    <InputType
+                        disabled={disabled}
+                        value={value}
+                        onChange={onChange}
+                        type={type}
+                        placeholder={placeholder}
+                        className={classNames(
+                            "input input-bordered w-full ",
+                            `input-${size}` + className
+                        )}
+                        {...props}
+                    />
                     {errors && (
                         <div className="px-2 mt-1 absolute text-sm text-red-600">
                             {errors}

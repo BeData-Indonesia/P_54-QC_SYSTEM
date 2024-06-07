@@ -2,7 +2,7 @@ import React from "react";
 import { checkNotNullOrEmpty } from "@/Helper";
 import classNames from "classnames";
 import Select from "react-select";
-
+import CreatableSelect from "react-select/creatable";
 export default function SelectInput({
     className,
     placeholder = "Type here",
@@ -14,6 +14,7 @@ export default function SelectInput({
     value,
     defaultValue,
     errors,
+    isCreateable ,
     ...props
 }) {
     return (
@@ -29,7 +30,7 @@ export default function SelectInput({
                     </div>
                 )}
                 <div className="w-full  relative">
-                    {
+                    {!isCreateable && (
                         <Select
                             className=" w-full max-w-xs"
                             options={options}
@@ -38,7 +39,17 @@ export default function SelectInput({
                             placeholder={placeholder || "Choose option"}
                             {...props}
                         />
-                    }
+                    )}
+                    {isCreateable && (
+                        <CreatableSelect
+                            className=" w-full max-w-xs"
+                            options={options}
+                            onChange={onChange}
+                            defaultValue={defaultValue}
+                            placeholder={placeholder || "Choose option"}
+                            {...props}
+                        />
+                    )}
                     {errors && (
                         <div className=" px-2 mt-1 absolute text-sm text-red-600">
                             {errors}

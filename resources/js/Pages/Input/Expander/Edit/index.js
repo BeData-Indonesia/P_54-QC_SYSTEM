@@ -38,6 +38,7 @@ export default function EditExpander(props) {
                                 handleSubmit={handleSubmit}
                                 setData={setData}
                                 method={"put"}
+                                products = {props?.products}
                             />
                         </div>
                     </div>

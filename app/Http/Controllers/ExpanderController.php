@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\DataCollection;
 use Illuminate\Http\Request;
 use App\Models\Expander;
+use App\Models\Product;
 use Inertia\Inertia;
 
 class ExpanderController extends Controller
@@ -29,7 +30,8 @@ class ExpanderController extends Controller
 
     public function create()
     {
-        return Inertia::render('Input/Expander/Create/');
+        $products= Product::get();
+        return Inertia::render('Input/Expander/Create/',['products'=>$products]);
     }
 
     public function store(Request $request)
@@ -88,16 +90,17 @@ class ExpanderController extends Controller
     {
       
         try {
+        
         $fullPath = $request->path();
         $segments = explode('/', $fullPath);
         $lastSegment = end($segments);
         $id = $lastSegment;
-
         $expander = Expander::where('no_expander',$id)->first();
-    
+        $products= Product::get();
 
-        return Inertia::render('Input/Expander/Edit',['data'=>$expander]);
+        return Inertia::render('Input/Expander/Edit',['data'=>$expander,'products'=>$products]);
         } catch (\Throwable $th) {
+        
             return redirect()->with(['message'=> 'Gagal menuju halam edit expander', 'success'=>false]);
         }   
         

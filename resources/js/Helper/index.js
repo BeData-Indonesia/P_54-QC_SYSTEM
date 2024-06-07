@@ -1,7 +1,10 @@
 import queryString from "query-string";
+
 export function checkNotNullOrEmpty(value) {
     return value !== null && value !== undefined && value !== "";
 }
+
+
 export const getTotalBeratBalokFormExpander = (row) => {
     if (row.length < 1) {
         return 0;
@@ -34,6 +37,8 @@ export const getTotalBagusBalok = (row) => {
     }, 0);
     return totalBagus;
 };
+
+
 export const getTotalBagusinject = (row) => {
     if (row.length < 1) {
         return 0;
@@ -43,6 +48,8 @@ export const getTotalBagusinject = (row) => {
     }, 0);
     return totalBagus;
 };
+
+
 export const getTotalRusakinject = (row) => {
     if (row.length < 1) {
         return 0;
@@ -76,3 +83,13 @@ export const getParamsbyKey = (key) => {
     let params = queryString.parse(location.search);
     return params[key];
 };
+
+
+export const generateValueLabel = (keyValue,keyLabel,objects)=>{
+    return objects?.map((object)=>{
+        return {
+            value: object[keyValue],
+            label: object[keyLabel]
+        }
+    })
+}
