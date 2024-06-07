@@ -2,7 +2,7 @@ import React from "react";
 import Input from "@/Components/Form/Input";
 import Button from "@/Components/Button";
 import SelectInput from "@/Components/Form/SelectInput";
-import { generateValueLabel } from "../../../../Helper";
+import { generateValueLabel } from "@/Helper";
 
 export default function FormExpander({
     handleSubmit,
