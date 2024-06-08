@@ -15,7 +15,16 @@ class ExpanderController extends Controller
 
         $search = $request->input('search');
         $expandersQuery = Expander::query();
-
+        if ($request->has('bulan') && is_numeric($request->input('bulan')) && $request->input('bulan') >= 1 && $request->input('bulan') <= 12) {
+            $bulan = $request->input('bulan');
+            $expandersQuery->whereMonth('date', $bulan);
+        }
+    
+  
+        if ($request->has('tahun') && is_numeric($request->input('tahun'))) {
+            $tahun = $request->input('tahun');
+            $expandersQuery->whereYear('date', $tahun);
+        }
         if ($search) {
             $expandersQuery->where(function($query) use ($search) {
             $query->where('untuk_produk', 'like', '%' . $search . '%')

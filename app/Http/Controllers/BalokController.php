@@ -16,6 +16,17 @@ class BalokController extends Controller
     {
         $search = $request->input('search');
         $balokQuery = Balok::query();
+
+        if ($request->has('bulan') && is_numeric($request->input('bulan')) && $request->input('bulan') >= 1 && $request->input('bulan') <= 12) {
+            $bulan = $request->input('bulan');
+            $balokQuery->whereMonth('date', $bulan);
+        }
+    
+  
+        if ($request->has('tahun') && is_numeric($request->input('tahun'))) {
+            $tahun = $request->input('tahun');
+            $balokQuery->whereYear('date', $tahun);
+        }
     
         if ($search) {
             $balokQuery = $balokQuery->whereHas('expander', function ($query) use ($search) {

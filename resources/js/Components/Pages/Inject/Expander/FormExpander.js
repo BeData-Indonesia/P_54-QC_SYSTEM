@@ -12,7 +12,7 @@ export default function FormExpander({
     method,
     products,
 }) {
-    const optionProducts = generateValueLabel('name','name',products)
+    const optionProducts = generateValueLabel("name", "name", products);
     return (
         <form onSubmit={handleSubmit}>
             <Input
@@ -83,8 +83,8 @@ export default function FormExpander({
                 ]}
                 errors={errors.jenis_bahan}
                 value={data.jenis_bahan}
-                />
-                
+            />
+
             <SelectInput
                 className="basic-single"
                 classNamePrefix="select"
@@ -100,7 +100,6 @@ export default function FormExpander({
                 placeholder="Masukkan Produk"
                 label="Produk"
                 name="untuk_produk"
-                
                 options={optionProducts}
                 errors={errors.untuk_produk}
                 value={data.untuk_produk}
@@ -117,7 +116,7 @@ export default function FormExpander({
                 size="sm"
                 errors={errors.no_silo}
             />
-          
+
             <Input
                 value={data.berat_jenis}
                 onChange={(e) => setData("berat_jenis", e.target.value)}
@@ -146,8 +145,8 @@ export default function FormExpander({
             <Input
                 value={data.date}
                 onChange={(e) => setData("date", e.target.value)}
-                name="density"
-                label="Density"
+                name="date"
+                label="Date"
                 className=""
                 placeholder={"11.01"}
                 type="date"

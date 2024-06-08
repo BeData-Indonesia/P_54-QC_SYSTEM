@@ -10,6 +10,7 @@ export default function TableBalok({ rows, onDelete, onEdit }) {
         "Density",
         "Jumlah Balok",
         "Berat (kg)",
+        "Date",
         "Keterangan",
         "Action",
     ];

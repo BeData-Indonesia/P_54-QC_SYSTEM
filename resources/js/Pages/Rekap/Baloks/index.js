@@ -6,49 +6,114 @@ import TableRekapBalok from "@/Components/Pages/Rekap/Balok/TableRekapBalok";
 import CardDashboard from "@/Components/Card/CardDashboard";
 import SelectInput from "@/Components/Form/SelectInput";
 import { optionsBulan, optionsTahun } from "@/Const";
-import queryString from "query-string";
-import { toNumber } from "lodash";
 import Button from "@/Components/Button";
+import { utils, writeFile } from "xlsx";
+import {
+    getDefaultValueBulan,
+    getDefaultValueTahun,
+    getParamsbyKey,
+    setUrl,
+} from "@/Helper";
 
 export default function Rekapbaloks(props) {
     const { get } = useForm();
-    const setUrl = (key, value) => {
-        let url = new URL(window.location.href);
-        let params = new URLSearchParams(url.search);
-        params.set(key, value);
-        url.search = params.toString();
-        get(
-            "/rekap/baloks" + params.toString() && "?" + params.toString(),
-            {},
-            { preserveState: true, queryString: params.toString() }
-        );
-    };
-    const getParamsbyKey = (key) => {
-        let params = queryString.parse(location.search);
-        return params[key];
-    };
     const { rekap } = props;
 
-    const getDefaultValueBulan = (value) => {
-        if (!value) {
-            return undefined;
-        }
-        let label = "";
-        optionsBulan.forEach((option) => {
-            if (option.value == toNumber(value)) {
-                label = option.label;
+    const generateArrayRekap = (rekap) => {
+        const returnRekap = [];
+
+        rekap.forEach((expander) => {
+            let total_berat = 0;
+
+            if (expander.baloks.length > 0) {
+                expander.baloks.forEach((product, index) => {
+                    total_berat += product.berat_kg * product.jumlah_balok;
+                    returnRekap.push([
+                        index == 0 ? expander.kode_bahan : null,
+                        index == 0 ? expander.updated_at : null,
+                        index == 0 ? expander.density : null,
+                        index == 0 ? expander.banyak_kg : null,
+                        index == 0 ? expander.untuk_produk : null,
+                        product.berat_kg,
+                        product.jumlah_balok,
+                        product.berat_kg * product.jumlah_balok,
+                        null,
+                    ]);
+                });
+                returnRekap.push([
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    total_berat,
+                ]);
             }
+
+            if (expander.baloks.length == 0) {
+                returnRekap.push([
+                    expander.kode_bahan,
+                    expander.updated_at,
+                    expander.density,
+                    expander.banyak_kg,
+                    expander.untuk_produk,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                ]);
+                returnRekap.push([
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    0,
+                ]);
+            }
+
+            returnRekap.push([
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+            ]);
         });
-        return { label: label, value: value };
+        return returnRekap;
     };
 
-    const getDefaultValueTahun = (value) => {
-        if (!value) {
-            return undefined;
-        }
-        return { label: value, value: value };
-    };
+    const handleExportRekapBalok = () => {
+        const ws = utils.aoa_to_sheet([
+            [
+                "Kode Bahan",
+                "Tanggal",
+                "Density",
+                "Berat Total Expander (KG)",
+                "Produk",
+                "Berat perProduk (KG)",
+                "Jumlah Produksi",
+                "Berat Hasil Produksi",
+                "Subtotal",
+            ],
+            ...generateArrayRekap(rekap),
+        ]);
+        const wb = utils.book_new();
+        utils.book_append_sheet(wb, ws, "Data");
 
+        writeFile(wb, "RekapBalok.xlsx");
+    };
     return (
         <Authenticated auth={props.auth} errors={props.errors}>
             <Head title="Dashboard" />
@@ -56,7 +121,7 @@ export default function Rekapbaloks(props) {
                 <div className=" flex flex-col gap-6">
                     <div className=" flex justify-between">
                         <h2 className=" text-xl font-bold my-2">Rekap Balok</h2>
-                        <Button>Export</Button>
+                        <Button onClick={handleExportRekapBalok}>Export</Button>
                     </div>
                     <div className=" flex">
                         <SelectInput
@@ -65,7 +130,7 @@ export default function Rekapbaloks(props) {
                             )}
                             label={"Bulan"}
                             onChange={(option) => {
-                                setUrl("bulan", option.value);
+                                setUrl("bulan", option.value, get);
                             }}
                             value={getParamsbyKey("bulan")}
                             options={optionsBulan}
@@ -77,7 +142,7 @@ export default function Rekapbaloks(props) {
                             )}
                             label={"Tahun"}
                             onChange={(option) => {
-                                setUrl("tahun", option.value);
+                                setUrl("tahun", option.value, get);
                             }}
                             value={getParamsbyKey("tahun")}
                             options={optionsTahun}
@@ -86,25 +151,21 @@ export default function Rekapbaloks(props) {
                     </div>
                     <div class=" flex gap-4">
                         <CardDashboard
-                            // percent={10}
                             title="Bahan Balok"
                             unit={"Kg"}
                             value={props?.total_berat_expander}
                         />
                         <CardDashboard
-                            // percent={10}
                             title="Total Masak"
                             unit={"Kg"}
                             value={props?.total_berat_masak_balok}
                         />
                         <CardDashboard
-                            // percent={10}
                             title="Waste Produksi"
                             unit={"Kg"}
                             value={props?.waste_produksi}
                         />
                         <CardDashboard
-                            // percent={10}
                             title="Persentase Waste Produksi"
                             unit={"%"}
                             value={props?.waste_production_percent}

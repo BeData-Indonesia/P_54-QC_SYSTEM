@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Head, Link } from "@inertiajs/inertia-react";
+import { Head, Link, useForm } from "@inertiajs/inertia-react";
 import Authenticated from "@/Layouts/Authenticated";
 import TableExpander from "@/Components/Pages/Inject/Expander/TablesExpander";
 import Pagination from "@/Components/Pagination/Pagination";
@@ -7,7 +7,16 @@ import ModalDelete from "@/Components/Modal/ModalDelete";
 import { Inertia } from "@inertiajs/inertia";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import Search from "@/Components/Filter/Search";
+import { optionsBulan, optionsTahun } from "@/Const";
+import SelectInput from "@/Components/Form/SelectInput";
+import {
+    getDefaultValueBulan,
+    getDefaultValueTahun,
+    getParamsbyKey,
+    setUrl,
+} from "@/Helper";
 export default function Expander(props) {
+    const { get } = useForm();
     const modalDeleteRef = React.useRef(null);
     const [modalDeleteOpen, setModalDeleteOpen] = React.useState(false);
     const [idDelete, setIdDelete] = React.useState();
@@ -46,6 +55,33 @@ export default function Expander(props) {
                         Create
                     </Link>
                     <Search />
+                </div>
+                <div className=" flex">
+                    <SelectInput
+                        defaultValue={getDefaultValueBulan(
+                            getParamsbyKey("bulan")
+                        )}
+                        label={"Bulan"}
+                        onChange={(option) => {
+                            setUrl("bulan", option.value, get);
+                        }}
+                        value={getParamsbyKey("bulan")}
+                        options={optionsBulan}
+                        className={""}
+                    />
+
+                    <SelectInput
+                        defaultValue={getDefaultValueTahun(
+                            getParamsbyKey("tahun")
+                        )}
+                        label={"Tahun"}
+                        onChange={(option) => {
+                            setUrl("tahun", option.value, get);
+                        }}
+                        value={getParamsbyKey("tahun")}
+                        options={optionsTahun}
+                        className={""}
+                    />
                 </div>
                 <TableExpander
                     rows={expanders}

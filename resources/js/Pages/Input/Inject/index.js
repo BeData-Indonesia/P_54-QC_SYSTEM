@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Head, Link } from "@inertiajs/inertia-react";
+import { Head, Link, useForm } from "@inertiajs/inertia-react";
 import Authenticated from "@/Layouts/Authenticated";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import TableInject from "@/Components/Pages/Inject/Inject/TableInject";
@@ -7,7 +7,16 @@ import ModalDelete from "@/Components/Modal/ModalDelete";
 import { Inertia } from "@inertiajs/inertia";
 import Pagination from "@/Components/Pagination/Pagination";
 import Search from "@/Components/Filter/Search";
+import { optionsBulan, optionsTahun } from "@/Const";
+import SelectInput from "@/Components/Form/SelectInput";
+import {
+    getDefaultValueBulan,
+    getDefaultValueTahun,
+    getParamsbyKey,
+    setUrl,
+} from "@/Helper";
 export default function Inject(props) {
+    const { get } = useForm();
     const { injects } = props;
     const [modalDeleteOpen, setModalDeleteOpen] = React.useState(false);
     const [idDelete, setIdDelete] = React.useState();
@@ -45,6 +54,33 @@ export default function Inject(props) {
                         Create
                     </Link>
                     <Search />
+                </div>
+                <div className=" flex">
+                    <SelectInput
+                        defaultValue={getDefaultValueBulan(
+                            getParamsbyKey("bulan")
+                        )}
+                        label={"Bulan"}
+                        onChange={(option) => {
+                            setUrl("bulan", option.value, get);
+                        }}
+                        value={getParamsbyKey("bulan")}
+                        options={optionsBulan}
+                        className={""}
+                    />
+
+                    <SelectInput
+                        defaultValue={getDefaultValueTahun(
+                            getParamsbyKey("tahun")
+                        )}
+                        label={"Tahun"}
+                        onChange={(option) => {
+                            setUrl("tahun", option.value, get);
+                        }}
+                        value={getParamsbyKey("tahun")}
+                        options={optionsTahun}
+                        className={""}
+                    />
                 </div>
                 <TableInject
                     rows={injects}

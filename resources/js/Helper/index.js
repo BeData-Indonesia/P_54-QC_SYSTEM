@@ -1,9 +1,10 @@
 import queryString from "query-string";
+import { optionsBulan } from "@/Const";
+import { toNumber } from "lodash";
 
 export function checkNotNullOrEmpty(value) {
     return value !== null && value !== undefined && value !== "";
 }
-
 
 export const getTotalBeratBalokFormExpander = (row) => {
     if (row.length < 1) {
@@ -38,7 +39,6 @@ export const getTotalBagusBalok = (row) => {
     return totalBagus;
 };
 
-
 export const getTotalBagusinject = (row) => {
     if (row.length < 1) {
         return 0;
@@ -48,7 +48,6 @@ export const getTotalBagusinject = (row) => {
     }, 0);
     return totalBagus;
 };
-
 
 export const getTotalRusakinject = (row) => {
     if (row.length < 1) {
@@ -84,12 +83,35 @@ export const getParamsbyKey = (key) => {
     return params[key];
 };
 
-
-export const generateValueLabel = (keyValue,keyLabel,objects)=>{
-    return objects?.map((object)=>{
+export const generateValueLabel = (keyValue, keyLabel, objects) => {
+    return objects?.map((object) => {
         return {
             value: object[keyValue],
-            label: object[keyLabel]
+            label: object[keyLabel],
+        };
+    });
+};
+
+export const getDefaultValueBulan = (value) => {
+    if (!value) {
+        return undefined;
+    }
+    let label = "";
+    optionsBulan.forEach((option) => {
+        if (option.value == toNumber(value)) {
+            label = option.label;
         }
-    })
-}
+    });
+    return { label: label, value: value };
+    // console.log(getDefaultValueBulan(2));
+    // Output: { label: 'February', value: 2 }
+};
+
+export const getDefaultValueTahun = (value) => {
+    if (!value) {
+        return undefined;
+    }
+    return { label: value, value: value };
+    // console.log(getDefaultValueTahun("2024"));
+    // { label: '2024', value: '2024' }
+};

@@ -33,7 +33,7 @@ export default function TableRekapBalok({ rows, onDetail }) {
                         <td>{totalbagus}</td>
                         <td>{0}</td>
                         <td>{totalbagus}</td>
-                        <td>{totalBerat}</td>
+                        <td>{totalBerat?.toFixed(2)}</td>
                         <td>
                             <div className=" flex gap-3">
                                 <div

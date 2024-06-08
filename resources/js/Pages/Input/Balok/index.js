@@ -1,13 +1,23 @@
 import * as React from "react";
-import { Head, Link } from "@inertiajs/inertia-react";
+import { Head, Link, useForm } from "@inertiajs/inertia-react";
 import Authenticated from "@/Layouts/Authenticated";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import ModalDelete from "@/Components/Modal/ModalDelete";
 import { Inertia } from "@inertiajs/inertia";
 import Pagination from "@/Components/Pagination/Pagination";
 import TableBalok from "@/Components/Pages/Inject/Balok/TableBalok";
-import Search from "../../../Components/Filter/Search";
+import Search from "@/Components/Filter/Search";
+import { optionsBulan, optionsTahun } from "@/Const";
+import SelectInput from "@/Components/Form/SelectInput";
+import {
+    getDefaultValueBulan,
+    getDefaultValueTahun,
+    getParamsbyKey,
+    setUrl,
+} from "@/Helper";
+
 export default function Balok(props) {
+    const { get } = useForm();
     const { baloks } = props;
     const [modalDeleteOpen, setModalDeleteOpen] = React.useState(false);
     const [idDelete, setIdDelete] = React.useState();
@@ -44,7 +54,35 @@ export default function Balok(props) {
                     <Link href="/input/baloks/create" className="btn w-24">
                         Create
                     </Link>
+
                     <Search />
+                </div>
+                <div className=" flex">
+                    <SelectInput
+                        defaultValue={getDefaultValueBulan(
+                            getParamsbyKey("bulan")
+                        )}
+                        label={"Bulan"}
+                        onChange={(option) => {
+                            setUrl("bulan", option.value, get);
+                        }}
+                        value={getParamsbyKey("bulan")}
+                        options={optionsBulan}
+                        className={""}
+                    />
+
+                    <SelectInput
+                        defaultValue={getDefaultValueTahun(
+                            getParamsbyKey("tahun")
+                        )}
+                        label={"Tahun"}
+                        onChange={(option) => {
+                            setUrl("tahun", option.value, get);
+                        }}
+                        value={getParamsbyKey("tahun")}
+                        options={optionsTahun}
+                        className={""}
+                    />
                 </div>
                 <TableBalok
                     rows={baloks}

@@ -58,7 +58,7 @@ class RekapBalokController extends Controller
             $wasteProduksi = getWasteProduksi($beratExpanderBalok,$beratBalokTotal);
             $wasteProductionPercent = 100;
             if($beratBalokTotal!=0){
-                $wasteProductionPercent= $beratExpanderBalok/$beratBalokTotal;
+                $wasteProductionPercent=100-( $beratBalokTotal/$beratExpanderBalok*100);
             }
 
             return Inertia::render('Rekap/Baloks',['waste_production_percent'=>$wasteProductionPercent,'rekap'=>$rekapExpander,'total_berat_expander'=>$beratExpanderBalok,'total_berat_masak_balok'=>$beratBalokTotal,'waste_produksi'=>$wasteProduksi]);

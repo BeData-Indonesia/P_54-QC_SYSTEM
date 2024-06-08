@@ -15,7 +15,17 @@ class InjectController extends Controller
     {
         $search = $request->input('search');
         $injectQuery = Inject::query();
+        
+        if ($request->has('bulan') && is_numeric($request->input('bulan')) && $request->input('bulan') >= 1 && $request->input('bulan') <= 12) {
+            $bulan = $request->input('bulan');
+            $injectQuery->whereMonth('date', $bulan);
+        }
     
+  
+        if ($request->has('tahun') && is_numeric($request->input('tahun'))) {
+            $tahun = $request->input('tahun');
+            $injectQuery->whereYear('date', $tahun);
+        }
         if ($search) {
             $injectQuery = $injectQuery->whereHas('expander', function ($query) use ($search) {
                 $query->where('untuk_produk', 'like', '%' . $search . '%')

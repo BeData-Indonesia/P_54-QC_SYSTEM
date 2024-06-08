@@ -7,7 +7,7 @@ import {
     getTotalBagusinject,
     getTotalBeratInjectFormExpander,
     getTotalRusakinject,
-} from "../../../../Helper";
+} from "@/Helper";
 
 export default function TableRekapInject({ rows, onDetail }) {
     const headerTableInject = [
