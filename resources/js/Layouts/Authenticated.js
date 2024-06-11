@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ApplicationLogo from "@/Components/ApplicationLogo";
+
 import Dropdown from "@/Components/Dropdown";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/inertia-react";
@@ -25,7 +25,6 @@ export default function Authenticated({ auth, header, children, status }) {
                     draggable: true,
                     progress: undefined,
                     theme: "light",
-                    // transition: "Bounce",
                 });
             }
             if (status?.success === false) {
@@ -38,7 +37,6 @@ export default function Authenticated({ auth, header, children, status }) {
                     draggable: true,
                     progress: undefined,
                     theme: "light",
-                    // transition: "Bounce",
                 });
             }
         };
@@ -54,7 +52,9 @@ export default function Authenticated({ auth, header, children, status }) {
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
                                 <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto text-gray-500" />
+                                    <h1 className=" font-bold text-xl">
+                                        PT. KCSI
+                                    </h1>
                                 </Link>
                             </div>
                         </div>

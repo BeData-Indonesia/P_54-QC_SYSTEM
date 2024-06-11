@@ -7,7 +7,9 @@ import {
     getTotalBagusinject,
     getTotalBeratInjectFormExpander,
     getTotalRusakinject,
+    getStatus,
 } from "@/Helper";
+import Indicator from "@/Components/Indicator";
 
 export default function TableRekapInject({ rows, onDetail }) {
     const headerTableInject = [
@@ -19,6 +21,7 @@ export default function TableRekapInject({ rows, onDetail }) {
         "Total Rusak",
         "Total Hasil",
         "Berat Hasil",
+        "Status",
         "Action",
     ];
 
@@ -34,11 +37,15 @@ export default function TableRekapInject({ rows, onDetail }) {
                         <td>{row["density"]}</td>
                         <td>{row["banyak_kg"]}</td>
                         <td>{row["untuk_produk"]}</td>
-
                         <td>{totalbagus}</td>
                         <td>{totalrusak}</td>
                         <td>{totalbagus + totalrusak}</td>
                         <td>{totalBerat}</td>
+                        <td>
+                            <Indicator
+                                status={getStatus(row["banyak_kg"], totalBerat)}
+                            />
+                        </td>
                         <td>
                             <div className=" flex gap-3">
                                 <div

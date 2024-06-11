@@ -3,7 +3,8 @@ import Table from "@/Components/Table/Table";
 
 import { FaEye } from "react-icons/fa";
 import { getTotalBeratBalokFormExpander } from "@/Helper";
-import { getTotalBagusBalok } from "../../../../Helper";
+import { getTotalBagusBalok, getStatus } from "@/Helper";
+import Indicator from "@/Components/Indicator";
 
 export default function TableRekapBalok({ rows, onDetail }) {
     const headerTableInject = [
@@ -15,6 +16,7 @@ export default function TableRekapBalok({ rows, onDetail }) {
         "Total Rusak",
         "Total Hasil",
         "Berat Hasil",
+        "Status",
         "Action",
     ];
 
@@ -29,11 +31,15 @@ export default function TableRekapBalok({ rows, onDetail }) {
                         <td>{row["density"]}</td>
                         <td>{row["banyak_kg"]}</td>
                         <td>{row["untuk_produk"]}</td>
-
                         <td>{totalbagus}</td>
                         <td>{0}</td>
                         <td>{totalbagus}</td>
                         <td>{totalBerat?.toFixed(2)}</td>
+                        <td>
+                            <Indicator
+                                status={getStatus(row["banyak_kg"], totalBerat)}
+                            />
+                        </td>
                         <td>
                             <div className=" flex gap-3">
                                 <div

@@ -2,6 +2,18 @@ import queryString from "query-string";
 import { optionsBulan } from "@/Const";
 import { toNumber } from "lodash";
 
+export const getStatus = (maximal, current) => {
+    if (maximal > current) {
+        return "minus";
+    }
+    if (maximal == current) {
+        return "equal";
+    }
+    if (maximal < current) {
+        return "over";
+    }
+};
+
 export function checkNotNullOrEmpty(value) {
     return value !== null && value !== undefined && value !== "";
 }
@@ -103,7 +115,7 @@ export const getDefaultValueBulan = (value) => {
         }
     });
     return { label: label, value: value };
-    // console.log(getDefaultValueBulan(2));
+    // getDefaultValueBulan(2);
     // Output: { label: 'February', value: 2 }
 };
 
@@ -112,6 +124,6 @@ export const getDefaultValueTahun = (value) => {
         return undefined;
     }
     return { label: value, value: value };
-    // console.log(getDefaultValueTahun("2024"));
+    // getDefaultValueTahun("2024");
     // { label: '2024', value: '2024' }
 };

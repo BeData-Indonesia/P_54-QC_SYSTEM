@@ -2,81 +2,133 @@ import React from "react";
 import Authenticated from "@/Layouts/Authenticated";
 import { Head, useForm } from "@inertiajs/inertia-react";
 import DashboardLayout from "@/Layouts/DashboardLayout";
-
 import CardDashboard from "@/Components/Card/CardDashboard";
-import SelectInput from "../../../Components/Form/SelectInput";
-import { optionsBulan, optionsTahun } from "../../../Const";
-import queryString from "query-string";
-import { toNumber } from "lodash";
+import SelectInput from "@/Components/Form/SelectInput";
 import TableRekapInject from "@/Components/Pages/Rekap/Inject/TableRekapInject";
 import Button from "@/Components/Button";
 import { utils, writeFile } from "xlsx";
+import { optionsBulan, optionsTahun } from "@/Const";
+import {
+    getDefaultValueBulan,
+    getDefaultValueTahun,
+    getParamsbyKey,
+    setUrl,
+} from "@/Helper";
 
 export default function Rekapbaloks(props) {
     const { get } = useForm();
-    const setUrl = (key, value) => {
-        let url = new URL(window.location.href);
-        let params = new URLSearchParams(url.search);
-        params.set(key, value);
-        url.search = params.toString();
-        get(
-            "/rekap/baloks" + params.toString() && "?" + params.toString(),
-            {},
-            { preserveState: true, queryString: params.toString() }
-        );
-    };
-    const getParamsbyKey = (key) => {
-        let params = queryString.parse(location.search);
-        return params[key];
-    };
+
     const { rekap } = props;
 
-    const getDefaultValueBulan = (value) => {
-        if (!value) {
-            return undefined;
-        }
-        let label = "";
-        optionsBulan.forEach((option) => {
-            if (option.value == toNumber(value)) {
-                label = option.label;
+    const generateArrayRekapInject = (rekap) => {
+        const returnRekap = [];
+
+        rekap.forEach((expander) => {
+            let total_berat = 0;
+
+            if (expander.injects.length > 0) {
+                expander.injects.forEach((product, index) => {
+                    total_berat += product.berat_kering * product.bagus;
+                    returnRekap.push([
+                        index == 0 ? expander.kode_bahan : null,
+                        index == 0 ? expander.updated_at : null,
+                        index == 0 ? expander.density : null,
+                        index == 0 ? expander.banyak_kg : null,
+                        index == 0 ? expander.untuk_produk : null,
+                        product.berat_kering,
+                        product.bagus,
+                        product.rusak,
+                        product.bagus + product.rusak,
+                        product.berat_kering * product.bagus,
+                        null,
+                    ]);
+                });
+                returnRekap.push([
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    total_berat,
+                ]);
             }
+
+            if (expander.injects.length == 0) {
+                returnRekap.push([
+                    expander.kode_bahan,
+                    expander.updated_at,
+                    expander.density,
+                    expander.banyak_kg,
+                    expander.untuk_produk,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                ]);
+                returnRekap.push([
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    0,
+                ]);
+            }
+
+            returnRekap.push([
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+            ]);
         });
-        return { label: label, value: value };
+        return returnRekap;
     };
 
-    const getDefaultValueTahun = (value) => {
-        if (!value) {
-            return undefined;
-        }
-        return { label: value, value: value };
-    };
-    const generateArrayRekapBalok = (gataunamavar) => {
-        const yangmaudireturn = gataunamavar.map((balok) => {
-            return {
-                "kode bahan": balok.kode_bahan,
-                shif: balok.shift,
-                "banyak kg": balok.banyak_kg,
-                tes: [1, 2, 3],
-            };
-        });
-        return yangmaudireturn;
-    };
-    const handleExport = () => {
-        console.log(rekap);
-        console.log(generateArrayRekapBalok(rekap));
-
-        const ws = utils.aoa_to_sheet(
+    const handleExportRekapInject = () => {
+        const ws = utils.aoa_to_sheet([
             [
-                ["halo", "yeay", "1", "2", 3],
-                [1, 2, null, null, 3],
-                [3, 4],
+                "Kode Bahan",
+                "Tanggal",
+                "Density",
+                "Berat Total Expander (KG)",
+                "Produk",
+                "Berat perProduk (KG)",
+                "Jumlah Bagus",
+                "Jumlah Rusak",
+                "Jumlah Total perHari",
+                "Berat Hasil Produksi",
+                "Subtotal",
             ],
-            [1, 2, 3]
-        );
+            ...generateArrayRekapInject(rekap),
+        ]);
         const wb = utils.book_new();
         utils.book_append_sheet(wb, ws, "Data");
 
-        writeFile(wb, "SheetJSReactAoO.xlsx");
+        writeFile(wb, "RekapInject.xlsx");
     };
     return (
         <Authenticated auth={props.auth} errors={props.errors}>
@@ -87,7 +139,9 @@ export default function Rekapbaloks(props) {
                         <h2 className=" text-xl font-bold my-2">
                             Rekap Inject
                         </h2>
-                        <Button onClick={handleExport}>Export</Button>
+                        <Button onClick={handleExportRekapInject}>
+                            Export
+                        </Button>
                     </div>
                     <div className=" flex">
                         <SelectInput

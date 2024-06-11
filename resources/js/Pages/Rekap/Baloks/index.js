@@ -19,7 +19,7 @@ export default function Rekapbaloks(props) {
     const { get } = useForm();
     const { rekap } = props;
 
-    const generateArrayRekap = (rekap) => {
+    const generateArrayRekapBalok = (rekap) => {
         const returnRekap = [];
 
         rekap.forEach((expander) => {
@@ -107,13 +107,14 @@ export default function Rekapbaloks(props) {
                 "Berat Hasil Produksi",
                 "Subtotal",
             ],
-            ...generateArrayRekap(rekap),
+            ...generateArrayRekapBalok(rekap),
         ]);
         const wb = utils.book_new();
         utils.book_append_sheet(wb, ws, "Data");
 
         writeFile(wb, "RekapBalok.xlsx");
     };
+
     return (
         <Authenticated auth={props.auth} errors={props.errors}>
             <Head title="Dashboard" />
