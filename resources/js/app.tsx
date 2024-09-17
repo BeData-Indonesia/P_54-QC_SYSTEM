@@ -5,9 +5,8 @@ import { createInertiaApp } from "@inertiajs/inertia-react";
 import { InertiaProgress } from "@inertiajs/progress";
 import * as React from "react";
 
-const appName = "Bedata";
-//const appName = window.document.getElementsByTagName("title")[0]?.innerText
-// const appName = window.document.getElementsByTagName("title")[0]?.innerText;
+const appName = "Quality Control PT.KCSI";
+
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => require(`./Pages/${name}`),

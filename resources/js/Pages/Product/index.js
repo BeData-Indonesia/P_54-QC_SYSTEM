@@ -34,7 +34,7 @@ export default function Product(props) {
                     <div>
                         <form action="" onSubmit={handleImportProducts}>
                             <input
-                                className=""
+                                className="file-input"
                                 accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                                 type="file"
                                 onChange={(e) =>

@@ -2,40 +2,56 @@ import { Link } from "@inertiajs/inertia-react";
 import React from "react";
 
 export default function Sidebar() {
+    const menus = [
+        { name: "Product", link: "/products", child: [] },
+        {
+            name: "Input",
+            link: "/input/expanders",
+            child: [
+                { name: "Expander", link: "/input/expanders" },
+                { name: "Inject", link: "/input/injects" },
+                { name: "Balok", link: "/input/baloks" },
+            ],
+        },
+        {
+            name: "Rekap",
+            link: "/rekap",
+            child: [
+                { name: "Balok", link: "/rekap/baloks" },
+                { name: "Injects", link: "/rekap/Injects" },
+            ],
+        },
+    ];
+
     return (
-        <ul className="menu  bg-base-200 w-56 min-h-screen">
-            <li>
-                <Link href="/products">Product</Link>
-            </li>
-            <li>
-                <details open>
-                    <summary>Input</summary>
-                    <ul>
+        <ul className="menu  bg-base-200 w-56 min-h-screen hidden lg:flex">
+            {menus.map((menu) => {
+                if (menu.child.length > 0) {
+                    return (
                         <li>
-                            <Link href="/input/expanders">Expander</Link>
+                            <details open>
+                                <summary>{menu.name}</summary>
+                                <ul>
+                                    {menu.child.map((childmenu) => {
+                                        return (
+                                            <li>
+                                                <Link href={childmenu.link}>
+                                                    {childmenu.name}
+                                                </Link>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </details>
                         </li>
-                        <li>
-                            <Link href="/input/injects">Inject</Link>
-                        </li>
-                        <li>
-                            <Link href="/input/baloks">Balok</Link>
-                        </li>
-                    </ul>
-                </details>
-            </li>
-            <li>
-                <details open>
-                    <summary>Rekap</summary>
-                    <ul>
-                        <li>
-                            <Link href="/rekap/baloks">Balok</Link>
-                        </li>
-                        <li>
-                            <Link href="/rekap/injects">Inject</Link>
-                        </li>
-                    </ul>
-                </details>
-            </li>
+                    );
+                }
+                return (
+                    <li>
+                        <Link href={menu.link}>{menu.name}</Link>
+                    </li>
+                );
+            })}
         </ul>
     );
 }

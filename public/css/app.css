@@ -3165,6 +3165,14 @@ html {
 
 @media (min-width: 1024px) {
 
+  .lg\:flex {
+    display: flex;
+  }
+
+  .lg\:w-full {
+    width: 100%;
+  }
+
   .lg\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
