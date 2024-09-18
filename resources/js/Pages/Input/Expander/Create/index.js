@@ -7,15 +7,14 @@ import FormExpander from "../../../../Components/Pages/Inject/Expander/FormExpan
 
 export default function CreateExpander(props) {
     const { errors, post, data, setData } = useForm({
-        kode_bahan: "",
-        banyak_kg: null,
-        no_silo: null,
+        material_code: "",
+        weight: null,
+        silo_code: null,
         shift: null,
-        untuk_produk: "",
-        jenis_bahan: "",
-        berat_jenis: null,
+        product: "",
+        material_type: "",
         density: null,
-        keterangan: "",
+        description: "",
         date: "",
     });
     const handleSubmit = (e) => {
@@ -33,7 +32,7 @@ export default function CreateExpander(props) {
                     errors={errors}
                     handleSubmit={handleSubmit}
                     setData={setData}
-                    products = {props?.products}
+                    products={props?.products}
                 />
             </DashboardLayout>
         </Authenticated>

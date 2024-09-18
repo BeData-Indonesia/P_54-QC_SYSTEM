@@ -14,7 +14,7 @@ export default function SelectInput({
     value,
     defaultValue,
     errors,
-    isCreateable ,
+    isCreateable,
     ...props
 }) {
     return (

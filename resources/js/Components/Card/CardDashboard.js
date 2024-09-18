@@ -1,4 +1,5 @@
 import React from "react";
+import { formatIfDecimal } from "@/Helper";
 
 export default function CardDashboard({
     title = "Produksi",
@@ -7,12 +8,13 @@ export default function CardDashboard({
     unit,
 }) {
     const plus = true;
+
     return (
         <div class="p-5 bg-white rounded shadow-lg">
             <div class="text-base text-gray-400 ">{title}</div>
             <div class="flex items-center pt-1">
                 <div class="text-2xl font-bold text-gray-900 flex gap-1 ">
-                    <div>{value.toFixed(2)}</div>
+                    <div>{formatIfDecimal(value)}</div>
                     <div>{unit}</div>
                 </div>
                 {percent && plus && (

@@ -10,6 +10,7 @@ export default function FormBalok({
     setData,
     errors,
     optionExpander,
+    method,
 }) {
     return (
         <form onSubmit={handleSubmit}>
@@ -31,6 +32,7 @@ export default function FormBalok({
                 options={optionExpander}
                 errors={errors.type}
                 value={data.type}
+                isDisabled={method == "put" ? true : false}
             />
             <Input
                 value={data.density}

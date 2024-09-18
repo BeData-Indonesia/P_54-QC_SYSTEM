@@ -18,7 +18,7 @@ export default function Sidebar() {
             link: "/rekap",
             child: [
                 { name: "Balok", link: "/rekap/baloks" },
-                { name: "Injects", link: "/rekap/Injects" },
+                { name: "Injects", link: "/rekap/injects" },
             ],
         },
     ];

@@ -16,28 +16,28 @@ export default function FormExpander({
     return (
         <form onSubmit={handleSubmit}>
             <Input
-                value={data.kode_bahan}
-                onChange={(e) => setData("kode_bahan", e.target.value)}
-                name="kode_bahan"
+                value={data.material_code}
+                onChange={(e) => setData("material_code", e.target.value)}
+                name="material_code"
                 label="Kode Bahan"
                 className=""
                 placeholder={"Masukkan kode bahan"}
                 type="text"
                 size="md"
-                errors={errors.kode_bahan}
+                errors={errors.material_code}
                 disabled={method == "put"}
             />
             <Input
-                value={data.banyak_kg}
-                onChange={(e) => setData("banyak_kg", e.target.value)}
-                name="banyak_kg"
-                label="Banyak KG"
+                value={data.weight}
+                onChange={(e) => setData("weight", e.target.value)}
+                name="weight"
+                label="Berat"
                 className=""
                 placeholder={"Masukkan berat expander"}
                 type="number"
                 size="sm"
                 step="0.01"
-                errors={errors.banyak_kg}
+                errors={errors.weight}
             />
             <SelectInput
                 defaultValue={{
@@ -65,69 +65,56 @@ export default function FormExpander({
                 className="basic-single"
                 classNamePrefix="select"
                 defaultValue={{
-                    value: data.jenis_bahan,
-                    label: data.jenis_bahan,
+                    value: data.material_type,
+                    label: data.material_type,
                 }}
                 onChange={(selectedOption) =>
-                    setData("jenis_bahan", selectedOption.value)
+                    setData("material_type", selectedOption.value)
                 }
                 isClearable={true}
                 isSearchable={true}
                 placeholder="Masukkan Jenis Bahan"
                 label="Jenis Bahan"
-                name="jenis_bahan"
+                name="material_type"
                 isDisabled={method == "put" && true}
                 options={[
                     { value: "inject", label: "Inject" },
                     { value: "balok", label: "Balok" },
                 ]}
-                errors={errors.jenis_bahan}
-                value={data.jenis_bahan}
+                errors={errors.material_type}
+                value={data.material_type}
             />
 
             <SelectInput
                 className="basic-single"
                 classNamePrefix="select"
                 defaultValue={{
-                    value: data.untuk_produk,
-                    label: data.untuk_produk,
+                    value: data.product,
+                    label: data.product,
                 }}
                 onChange={(selectedOption) =>
-                    setData("untuk_produk", selectedOption.value)
+                    setData("product", selectedOption.value)
                 }
                 isClearable={true}
                 isSearchable={true}
                 placeholder="Masukkan Produk"
                 label="Produk"
-                name="untuk_produk"
+                name="product"
                 options={optionProducts}
-                errors={errors.untuk_produk}
-                value={data.untuk_produk}
+                errors={errors.product}
+                value={data.product}
                 isCreateable={true}
             />
             <Input
-                value={data.no_silo}
-                onChange={(e) => setData("no_silo", e.target.value)}
-                name="no_silo"
+                value={data.silo_code}
+                onChange={(e) => setData("silo_code", e.target.value)}
+                name="silo_code"
                 label="No silo"
                 className=""
                 placeholder={"Masukkan no silo"}
                 type="text"
                 size="sm"
-                errors={errors.no_silo}
-            />
-
-            <Input
-                value={data.berat_jenis}
-                onChange={(e) => setData("berat_jenis", e.target.value)}
-                name="berat_jenis"
-                label="Berat Jenis"
-                className=""
-                placeholder={"Masukkan berat jenis"}
-                type="number"
-                step="0.01"
-                size="sm"
-                errors={errors.berat_jenis}
+                errors={errors.silo_code}
             />
             <Input
                 value={data.density}
@@ -156,15 +143,15 @@ export default function FormExpander({
             />
 
             <Input
-                value={data.keterangan}
-                onChange={(e) => setData("keterangan", e.target.value)}
-                name="keterangan"
+                value={data.description}
+                onChange={(e) => setData("description", e.target.value)}
+                name="Keterangan"
                 label="Keterangan"
                 className=""
                 placeholder={"Masukkan keterangan (opsional)"}
                 type="text-area"
                 size="sm"
-                errors={errors.keterangan}
+                errors={errors.description}
             />
             <div className=" my-8 w-full items-end flex justify-end">
                 <Button type="submit" children={"Submit"} />

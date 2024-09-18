@@ -23,8 +23,8 @@ export default function TableRekapInjectDetail({ rows }) {
                     <tr className=" border-slate-300">
                         <td className="">{row["no_inject"]}</td>
                         <td>{row["spasi"]}</td>
-                        <td>{row["expander"]["untuk_produk"]}</td>
-                        <td>{row["expander"]["kode_bahan"]}</td>
+                        <td>{row["expander"]["product"]}</td>
+                        <td>{row["expander"]["material_code"]}</td>
                         <td>{row["bagus"] + row["rusak"]}</td>
                         <td className=" max-w-5">{row["bagus"]}</td>
                         <td className=" max-w-5">{row["rusak"]}</td>

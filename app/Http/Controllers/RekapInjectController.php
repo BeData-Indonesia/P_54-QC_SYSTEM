@@ -12,7 +12,7 @@ class RekapInjectController extends Controller
 {
     public function index(Request $request)
         {
-            $query = Expander::where('jenis_bahan', 'inject')->orderBy('date', 'desc')->with('injects');
+            $query = Expander::where('material_type', 'inject')->orderBy('date', 'desc')->with('injects');
             if ($request->has('bulan') && is_numeric($request->input('bulan')) && $request->input('bulan') >= 1 && $request->input('bulan') <= 12) {
                 $bulan = $request->input('bulan');
                 $query->whereMonth('date', $bulan);
@@ -30,7 +30,7 @@ class RekapInjectController extends Controller
             function totalBeratExpanderInject(Collection $expanderCollection) {
                 $totalBerat = 0;
                 foreach ($expanderCollection as $expander) {                   
-                        $totalBerat += $expander->banyak_kg;
+                        $totalBerat += $expander->weight;
                 }
                 return $totalBerat;
             }

@@ -10,21 +10,21 @@ class Expander extends Model
     use HasFactory;
     protected $table = 'expander';
 
-    protected $primaryKey = 'kode_bahan';
+    protected $primaryKey = 'material_code';
 
     public $incrementing = false;
 
     protected $fillable = [
-        'kode_bahan',
+        'material_code',
         'shift',
-        'banyak_kg',
-        'no_silo',
-        'untuk_produk',
-        'berat_jenis',
+        'weight',
+        'silo_code',
+        'product',
         'density',
-        'keterangan',
-        'jenis_bahan',
-        'date'
+        'description',
+        'material_type',
+        'date',
+        'remaining_weight'
     ];
 
 

@@ -1,7 +1,10 @@
 import queryString from "query-string";
 import { optionsBulan } from "@/Const";
 import { toNumber } from "lodash";
-
+export function formatIfDecimal(value, decimalPlaces = 2) {
+    // Check if the number has decimal places
+    return value % 1 !== 0 ? value.toFixed(decimalPlaces) : value.toString();
+}
 export const getStatus = (maximal, current) => {
     if (maximal > current) {
         return "minus";

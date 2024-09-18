@@ -10,7 +10,10 @@ export default function CreateInject(props) {
     const mappingOption = () => {
         const expanders = props.expanders;
         const convertExpanders = expanders.map((expander) => {
-            return { value: expander.no_expander, label: expander.kode_bahan };
+            return {
+                value: expander.no_expander,
+                label: expander.material_code,
+            };
         });
         return convertExpanders;
     };

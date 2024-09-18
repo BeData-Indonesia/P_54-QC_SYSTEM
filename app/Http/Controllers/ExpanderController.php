@@ -27,9 +27,9 @@ class ExpanderController extends Controller
         }
         if ($search) {
             $expandersQuery->where(function($query) use ($search) {
-            $query->where('untuk_produk', 'like', '%' . $search . '%')
-                ->orWhere('kode_bahan', 'like', '%' . $search . '%')
-                ->orWhere('keterangan', 'like', '%' . $search . '%'); 
+            $query->where('product', 'like', '%' . $search . '%')
+                ->orWhere('material_code', 'like', '%' . $search . '%')
+                ->orWhere('description', 'like', '%' . $search . '%'); 
             });
         }
 
@@ -46,48 +46,48 @@ class ExpanderController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'kode_bahan' => 'required|string|unique:expander,kode_bahan|max:23',
+            'material_code' => 'required|string|unique:expander,material_code|max:23',
             'shift' => 'required|integer',
-            'banyak_kg' => 'required|numeric',
-            'no_silo' => 'required|integer',
-            'untuk_produk' => 'required|string|max:50',
-            'berat_jenis' => 'required|numeric',
-            'jenis_bahan' => 'required|string',
+            'weight' => 'required|numeric',
+            'silo_code' => 'required|integer',
+            'product' => 'required|string|max:50',
+            'material_type' => 'required|string',
             'density' => 'required|numeric',
-            'keterangan' => 'nullable|string',
+            'description' => 'nullable|string',
             'date' => 'required|date',
         ], [
-            'kode_bahan.required' => 'Kode bahan wajib diisi.',
-            'kode_bahan.unique' => 'Kode bahan sudah ada.',
+            'material_code.required' => 'Kode bahan wajib diisi.',
+            'material_code.unique' => 'Kode bahan sudah ada.',
             'shift.required' => 'Shift wajib diisi.',
             'shift.integer' => 'Shift harus berupa angka.',
-            'banyak_kg.required' => 'Banyak kg wajib diisi.',
-            'banyak_kg.numeric' => 'Banyak kg harus berupa angka.',
-            'no_silo.required' => 'No silo wajib diisi.',
-            'no_silo.integer' => 'No silo harus berupa angka.',
-            'untuk_produk.required' => 'Untuk produk wajib diisi.',
-            'untuk_produk.string' => 'Untuk produk harus berupa teks.',
-            'berat_jenis.required' => 'Berat jenis wajib diisi.',
-            'berat_jenis.numeric' => 'Berat jenis harus berupa angka.',
-            'jenis_bahan.required' => 'Jenis bahan wajib diisi.',
+            'weight.required' => 'Banyak kg wajib diisi.',
+            'weight.numeric' => 'Banyak kg harus berupa angka.',
+            'silo_code.required' => 'No silo wajib diisi.',
+            'silo_code.integer' => 'No silo harus berupa angka.',
+            'product.required' => 'Untuk produk wajib diisi.',
+            'product.string' => 'Untuk produk harus berupa teks.',
+            'material_type.required' => 'Jenis bahan wajib diisi.',
             'density.required' => 'Density wajib diisi.',
             'density.numeric' => 'Density harus berupa angka.',
             'date.required' => 'Tanggal wajib diisi.',
             'date.date' => 'Tanggal harus berupa tanggal yang valid.',
         ]);
-        $kodeBahan = $request->input('kode_bahan');
-        if (Expander::where('kode_bahan', $kodeBahan)->exists()) {
+
+        $kodeBahan = $request->input('material_code');
+
+        if (Expander::where('material_code', $kodeBahan)->exists()) {
             return redirect('/input/expanders/create')->with([
                 'message' => 'Expander tidak berhasil ditambahkan!',
                 'success' => false,
             ]);
-        } 
+        }
+        
+        $validatedData['remaining_weight'] = $request->input('weight', 0);
+        // dd($validatedData);
         
         Expander::create($validatedData);
         return redirect('/input/expanders/')->with(['message'=> 'Expander berhasil ditambahkan!', 'success'=>true]);
         
-       
-      
     }
 
     public function show(Expander $expander)
@@ -119,27 +119,24 @@ class ExpanderController extends Controller
     {     
         $validatedData = $request->validate([
             'shift' => 'required|integer',
-            'banyak_kg' => 'required|numeric',
-            'no_silo' => 'required|integer',
-            'untuk_produk' => 'required|string|max:50',
-            'berat_jenis' => 'required|numeric',
+            'weight' => 'required|numeric',
+            'silo_code' => 'required|integer',
+            'product' => 'required|string|max:50',
             'density' => 'required|numeric',
-            'keterangan' => 'nullable|string',
-            'jenis_bahan' => 'required|string',
+            'description' => 'nullable|string',
+            'material_type' => 'required|string',
             'date' => 'required|date',
         ], [
             'shift.required' => 'Shift wajib diisi.',
             'shift.integer' => 'Shift harus berupa angka.',
-            'banyak_kg.required' => 'Banyak kg wajib diisi.',
-            'banyak_kg.numeric' => 'Banyak kg harus berupa angka.',
-            'no_silo.required' => 'No silo wajib diisi.',
-            'no_silo.integer' => 'No silo harus berupa angka.',
-            'untuk_produk.required' => 'Untuk produk wajib diisi.',
-            'untuk_produk.string' => 'Untuk produk harus berupa teks.',
-            'berat_jenis.required' => 'Berat jenis wajib diisi.',
-            'berat_jenis.numeric' => 'Berat jenis harus berupa angka.',
+            'weight.required' => 'Banyak kg wajib diisi.',
+            'weight.numeric' => 'Banyak kg harus berupa angka.',
+            'silo_code.required' => 'No silo wajib diisi.',
+            'silo_code.integer' => 'No silo harus berupa angka.',
+            'product.required' => 'Untuk produk wajib diisi.',
+            'product.string' => 'Untuk produk harus berupa teks.',
             'density.required' => 'Density wajib diisi.',
-            'jenis_bahan.required' => 'Jenis bahan wajib diisi.',
+            'material_type.required' => 'Jenis bahan wajib diisi.',
             'density.numeric' => 'Density harus berupa angka.',
             'date.required' => 'Tanggal wajib diisi.',
             'date.date' => 'Tanggal harus berupa tanggal yang valid.',

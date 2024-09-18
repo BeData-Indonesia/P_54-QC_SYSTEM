@@ -33,6 +33,7 @@ export default function FormInject({
                 options={optionExpander}
                 errors={errors.type}
                 value={data.type}
+                isDisabled={method == "put" ? true : false}
             />
             <Input
                 value={data.spasi}

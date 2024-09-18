@@ -15,17 +15,17 @@ class CreateExpanderTable extends Migration
     {
         Schema::create('expander', function (Blueprint $table) {
             $table->increments('no_expander');
-            $table->string('kode_bahan')->unique();
-            $table->timestamps();
+            $table->string('material_code')->unique();
             $table->integer('shift');
-            $table->string('jenis_bahan');
-            $table->float('banyak_kg');
-            $table->integer('no_silo');
-            $table->string('untuk_produk');
-            $table->float('berat_jenis');
+            $table->string('material_type');
+            $table->float('weight');
+            $table->float('remaining_weight');
+            $table->integer('silo_code');
+            $table->string('product');
             $table->float('density');
-            $table->text('keterangan');
+            $table->text('description')->nullable();
             $table->date('date');
+            $table->timestamps();
         });
     }
 

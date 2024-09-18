@@ -1,10 +1,9 @@
 import * as React from "react";
 import { Head, useForm } from "@inertiajs/inertia-react";
 import Authenticated from "@/Layouts/Authenticated";
-import Input from "@/Components/Form/Input";
-import Button from "@/Components/Button";
+
 import DashboardLayout from "@/Layouts/DashboardLayout";
-import SelectInput from "@/Components/Form/SelectInput";
+
 import FormBalok from "@/Components/Pages/Inject/Balok/FormBalok";
 
 export default function EditBalok(props) {
@@ -12,7 +11,10 @@ export default function EditBalok(props) {
     const mappingOption = () => {
         const expanders = props.expanders;
         const convertExpanders = expanders.map((expander) => {
-            return { value: expander.no_expander, label: expander.kode_bahan };
+            return {
+                value: expander.no_expander,
+                label: expander.material_code,
+            };
         });
         return convertExpanders;
     };

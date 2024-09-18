@@ -33,17 +33,17 @@ export default function TableRekapInject({ rows, onDetail }) {
                 const totalBerat = getTotalBeratInjectFormExpander(row.injects);
                 return (
                     <tr className=" border-slate-300">
-                        <td className="">{row["kode_bahan"]}</td>
+                        <td className="">{row["material_code"]}</td>
                         <td>{row["density"]}</td>
-                        <td>{row["banyak_kg"]}</td>
-                        <td>{row["untuk_produk"]}</td>
+                        <td>{row["weight"]}</td>
+                        <td>{row["product"]}</td>
                         <td>{totalbagus}</td>
                         <td>{totalrusak}</td>
                         <td>{totalbagus + totalrusak}</td>
                         <td>{totalBerat}</td>
                         <td>
                             <Indicator
-                                status={getStatus(row["banyak_kg"], totalBerat)}
+                                status={getStatus(row["weight"], totalBerat)}
                             />
                         </td>
                         <td>

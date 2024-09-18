@@ -21,7 +21,7 @@ export default function TableBalok({ rows, onDelete, onEdit }) {
                 return (
                     <tr className=" border-slate-300">
                         <td className="">{row["no_balok"]}</td>
-                        <td>{row["expander"]["kode_bahan"]}</td>
+                        <td>{row["expander"]["material_code"]}</td>
                         <td>{row["density"]}</td>
                         <td>{row["jumlah_balok"]}</td>
                         <td>{row["berat_kg"]}</td>

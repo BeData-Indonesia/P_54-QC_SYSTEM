@@ -9,10 +9,9 @@ export default function TableExpander({ rows, onDelete, onEdit }) {
     const headerTableExpanders = [
         "Kode Bahan",
         "Shift",
-        "Kg",
+        "Berat",
         "No Silo",
         "Produk",
-        "Berat Jenis",
         "Density",
         "Keterangan",
         "Date",
@@ -25,17 +24,16 @@ export default function TableExpander({ rows, onDelete, onEdit }) {
                 return (
                     <>
                         <tr className=" border-slate-300">
-                            <td className="">{row["kode_bahan"]}</td>
+                            <td className="">{row["material_code"]}</td>
                             <td>{row["shift"]}</td>
-                            <td>{row["banyak_kg"]}</td>
-                            <td>{row["no_silo"]}</td>
-                            <td>{row["untuk_produk"]}</td>
-                            <td>{row["berat_jenis"]}</td>
+                            <td>{row["weight"]} kg</td>
+                            <td>{row["silo_code"]}</td>
+                            <td>{row["product"]}</td>
                             <td className=" max-w-5">
                                 {row["density"].toFixed(2)}
                             </td>
                             <td className="truncate max-w-11">
-                                {row["keterangan"]}
+                                {row["description"]}
                             </td>
                             <td>{formatDate(row["date"])}</td>
                             <td>

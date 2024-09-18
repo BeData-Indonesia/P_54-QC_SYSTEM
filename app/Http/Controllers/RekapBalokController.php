@@ -13,7 +13,7 @@ class RekapBalokController extends Controller
     
         public function index(Request $request)
         {
-            $query = Expander::where('jenis_bahan', 'balok')->orderBy('date', 'desc')->with('baloks');
+            $query = Expander::where('material_type', 'balok')->orderBy('date', 'desc')->with('baloks');
 
 
             if ($request->has('bulan') && is_numeric($request->input('bulan')) && $request->input('bulan') >= 1 && $request->input('bulan') <= 12) {
@@ -33,7 +33,7 @@ class RekapBalokController extends Controller
             function totalBeratExpanderBalok(Collection $expanderCollection) {
                 $totalBerat = 0;
                 foreach ($expanderCollection as $expander) {                   
-                        $totalBerat += $expander->banyak_kg;
+                        $totalBerat += $expander->weight;
                 }
                 return $totalBerat;
             }

@@ -29,11 +29,11 @@ export default function Rekapbaloks(props) {
                 expander.baloks.forEach((product, index) => {
                     total_berat += product.berat_kg * product.jumlah_balok;
                     returnRekap.push([
-                        index == 0 ? expander.kode_bahan : null,
+                        index == 0 ? expander.material_code : null,
                         index == 0 ? expander.updated_at : null,
                         index == 0 ? expander.density : null,
-                        index == 0 ? expander.banyak_kg : null,
-                        index == 0 ? expander.untuk_produk : null,
+                        index == 0 ? expander.weight : null,
+                        index == 0 ? expander.product : null,
                         product.berat_kg,
                         product.jumlah_balok,
                         product.berat_kg * product.jumlah_balok,
@@ -55,10 +55,10 @@ export default function Rekapbaloks(props) {
 
             if (expander.baloks.length == 0) {
                 returnRekap.push([
-                    expander.kode_bahan,
+                    expander.material_code,
                     expander.updated_at,
                     expander.density,
-                    expander.banyak_kg,
+                    expander.weight,
                     expander.untuk_produk,
                     null,
                     null,

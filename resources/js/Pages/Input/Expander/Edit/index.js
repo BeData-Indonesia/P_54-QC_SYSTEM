@@ -6,15 +6,14 @@ import FormExpander from "@/Components/Pages/Inject/Expander/FormExpander";
 
 export default function EditExpander(props) {
     const { errors, post, data, setData, put } = useForm({
-        kode_bahan: props?.data?.kode_bahan,
-        banyak_kg: props.data.banyak_kg,
-        no_silo: props.data.no_silo,
+        material_code: props?.data?.material_code,
+        weight: props.data.weight,
+        silo_code: props.data.silo_code,
         shift: props.data.shift,
-        untuk_produk: props.data.untuk_produk,
-        berat_jenis: props.data.berat_jenis,
-        jenis_bahan: props.data.jenis_bahan,
+        product: props.data.product,
+        material_type: props.data.material_type,
         density: props.data.density,
-        keterangan: props.data.keterangan,
+        description: props.data.description,
         date: props.data.date,
     });
     const handleSubmit = (e) => {
@@ -38,7 +37,7 @@ export default function EditExpander(props) {
                                 handleSubmit={handleSubmit}
                                 setData={setData}
                                 method={"put"}
-                                products = {props?.products}
+                                products={props?.products}
                             />
                         </div>
                     </div>
