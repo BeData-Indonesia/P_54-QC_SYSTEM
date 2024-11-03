@@ -6,6 +6,7 @@ use App\Http\Resources\DataCollection;
 use Illuminate\Http\Request;
 use App\Models\Expander;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class ExpanderController extends Controller
@@ -95,28 +96,33 @@ class ExpanderController extends Controller
         return view('expander.show', compact('expander'));
     }
 
-    public function edit(Request $request,Expander $expander)
+    public function edit(Request $request, Expander $expander)
     {
-      
         try {
-        
-        $fullPath = $request->path();
-        $segments = explode('/', $fullPath);
-        $lastSegment = end($segments);
-        $id = $lastSegment;
-        $expander = Expander::where('no_expander',$id)->first();
-        $products= Product::get();
+            // Get the full path and extract the last segment (ID)
+            $id = $request->segment(count($request->segments()));
 
-        return Inertia::render('Input/Expander/Edit',['data'=>$expander,'products'=>$products]);
+            // Retrieve expander and product data
+            $expander = Expander::where('no_expander', $id)->firstOrFail();
+            $products = Product::all();
+
+            // Render the edit page with the retrieved data
+            return Inertia::render('Input/Expander/Edit', [
+                'data' => $expander,
+                'products' => $products
+            ]);
         } catch (\Throwable $th) {
-        
-            return redirect()->with(['message'=> 'Gagal menuju halam edit expander', 'success'=>false]);
-        }   
-        
+            // Handle the exception and redirect with an error message
+            return redirect()->back()->with([
+                'message' => 'Gagal menuju halaman edit expander',
+                'success' => false
+            ]);
+        }
     }
 
-    public function update(Request $request, Expander $expander)
-    {     
+    public function update(Request $request)
+    {
+        // Validasi data yang diterima dari request
         $validatedData = $request->validate([
             'shift' => 'required|integer',
             'weight' => 'required|numeric',
@@ -136,27 +142,52 @@ class ExpanderController extends Controller
             'product.required' => 'Untuk produk wajib diisi.',
             'product.string' => 'Untuk produk harus berupa teks.',
             'density.required' => 'Density wajib diisi.',
-            'material_type.required' => 'Jenis bahan wajib diisi.',
             'density.numeric' => 'Density harus berupa angka.',
+            'material_type.required' => 'Jenis bahan wajib diisi.',
             'date.required' => 'Tanggal wajib diisi.',
             'date.date' => 'Tanggal harus berupa tanggal yang valid.',
         ]);
-
+    
+        // Mendapatkan ID dari URL
+        $id = $request->segment(count($request->segments()));
+    
         try {
-        $fullPath = $request->path();
-        $segments = explode('/', $fullPath);
-        $lastSegment = end($segments);
-        $id = $lastSegment;
-
-        $expander = Expander::where('no_expander',$id)->first();
+            DB::beginTransaction();
+    
+            // Mengambil data expander berdasarkan no_expander
+            $expander = Expander::where('no_expander', $id)->firstOrFail();
+    
+            $currentWeight = $expander['weight'];
+            $newWeight = $validatedData['weight'];
+            $currentRemainWeight = $expander['remaining_weight'];
             
-
-        $expander->update($validatedData);
-        
-        return redirect('/input/expanders/')->with(['message'=> 'Berhasil update expander', 'success'=>true]);
+            // Menghitung berat sisa baru
+            $newRemainWeight = $newWeight - ($currentWeight - $currentRemainWeight);
+    
+            // Validasi apakah remaining_weight negatif
+            if ($newRemainWeight < 0) {
+                throw new \Exception('Expander kurang dari produk');
+            }
+    
+            // Menambahkan remaining_weight ke data yang telah divalidasi
+            $validatedData['remaining_weight'] = $newRemainWeight;
+    
+            // Update expander
+            $expander->update($validatedData);
+    
+            DB::commit();
+            return redirect('/input/expanders/')->with([
+                'message' => 'Berhasil update expander', 
+                'success' => true
+            ]);
+    
         } catch (\Throwable $th) {
-            return redirect('/input/expanders')->with(['message'=> 'Gagal edit expander', 'success'=>false]);
-        }   
+            DB::rollback();
+            return redirect('/input/expanders')->with([
+                'message' => $th->getMessage() ?? 'Gagal edit expander', 
+                'success' => false
+            ]);
+        }
     }
 
     public function destroy(Request $request)
