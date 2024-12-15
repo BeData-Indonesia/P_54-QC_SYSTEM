@@ -54,7 +54,7 @@ export default function Authenticated(props) {
                             <div className="shrink-0 flex items-center">
                                 <Link href="/">
                                     <h1 className=" font-bold text-xl">
-                                        QC PT. X
+                                        QC System
                                     </h1>
                                 </Link>
                             </div>
