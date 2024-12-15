@@ -31,7 +31,7 @@ export default function TableRekapInjectDetail({ rows }) {
                         <td className=" max-w-5">{row["cycle_time"]}</td>
                         <td className=" max-w-5">{row["aging_time"]}</td>
                         <td className=" max-w-5">{row["berat_kering"]}</td>
-                        <td className=" max-w-11">{row["date"]}</td>
+                        <td className=" min-w-5">{row["date"]}</td>
                     </tr>
                 );
             })}

@@ -1,8 +1,9 @@
 import { Link } from "@inertiajs/inertia-react";
 import React from "react";
 
-export default function Sidebar() {
+export default function Sidebar({admin}) {
     const menus = [
+        ...(admin ? [{ name: "Users", link: "/users", child: [] }] : []),
         { name: "Product", link: "/products", child: [] },
         {
             name: "Input",
@@ -14,7 +15,7 @@ export default function Sidebar() {
             ],
         },
         {
-            name: "Rekap",
+            name: "Recap",
             link: "/rekap",
             child: [
                 { name: "Balok", link: "/rekap/baloks" },

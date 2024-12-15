@@ -17,8 +17,8 @@ export default function VerifyEmail({ status }) {
             <Head title="Email Verification" />
 
             <div className="mb-4 text-sm text-gray-600">
-                Thanks for signing up! Before getting started, could you verify your email address by clicking on the
-                link we just emailed to you? If you didn't receive the email, we will gladly send you another.
+            Thanks for signing up!
+            Before getting started, please wait for the admin to verify your email address. Once your email is verified, you'll be able to access your account. If you have any questions, feel free to contact us.
             </div>
 
             {status === 'verification-link-sent' && (
@@ -27,9 +27,9 @@ export default function VerifyEmail({ status }) {
                 </div>
             )}
 
-            <form onSubmit={submit}>
+            {/* <form onSubmit={submit}> */}
                 <div className="mt-4 flex items-center justify-between">
-                    <Button processing={processing}>Resend Verification Email</Button>
+                    {/* <Button processing={processing}>Resend Verification Email</Button> */}
 
                     <Link
                         href={route('logout')}
@@ -40,7 +40,7 @@ export default function VerifyEmail({ status }) {
                         Log Out
                     </Link>
                 </div>
-            </form>
+            {/* </form> */}
         </Guest>
     );
 }

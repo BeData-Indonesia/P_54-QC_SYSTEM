@@ -8,7 +8,8 @@ import Sidebar from "@/Components/menu/Sidebar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function Authenticated({ auth, header, children, status }) {
+export default function Authenticated(props) {
+    const { auth, header, children, status } = props
     const [theme, setTheme] = useState("light");
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
@@ -42,7 +43,7 @@ export default function Authenticated({ auth, header, children, status }) {
         };
         notify();
         document.querySelector("html").setAttribute("data-theme", theme);
-    }, []);
+    }, [status]);
 
     return (
         <div className="min-h-screen bg-gray-100" dataTheme>
@@ -53,7 +54,7 @@ export default function Authenticated({ auth, header, children, status }) {
                             <div className="shrink-0 flex items-center">
                                 <Link href="/">
                                     <h1 className=" font-bold text-xl">
-                                        PT. KCSI
+                                        QC PT. X
                                     </h1>
                                 </Link>
                             </div>
@@ -189,7 +190,7 @@ export default function Authenticated({ auth, header, children, status }) {
 
             <main>
                 <div className=" flex">
-                    <Sidebar />
+                    <Sidebar admin={auth.user.admin}/>
                     {children}
                     <ToastContainer
                         position="top-center"

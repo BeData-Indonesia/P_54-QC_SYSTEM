@@ -28,7 +28,7 @@ export default function Modal({ ref, children, modalOpen, onModalClose }) {
                         height: "100vh",
                         position: "fixed",
                     }}
-                    className=" w-screen h-screen bg-black absolute top-0   z-40"
+                    className=" w-screen h-screen bg-black absolute top-0 left-0  z-40"
                 >
                     tes
                 </div>

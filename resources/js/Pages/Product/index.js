@@ -5,6 +5,7 @@ import { Head, useForm } from "@inertiajs/inertia-react";
 import Button from "@/Components/Button";
 import { utils, writeFile } from "xlsx";
 import TableProduct from "@/Components/Pages/Product/TableProduct";
+import { Inertia } from "@inertiajs/inertia";
 
 export default function Product(props) {
     const handleDownloadTemplate = () => {
@@ -20,6 +21,14 @@ export default function Product(props) {
         post("/products", data);
         reset("file");
     };
+    const onEditRow=(id)=>{
+        Inertia.get(`/products/edit/${id}`)
+        return 
+    }
+    const onDeleteRow = (id)=>{
+        Inertia.delete(`/products/${id}`)
+        return
+    }
 
     return (
         <Authenticated
@@ -51,7 +60,7 @@ export default function Product(props) {
                     </Button>
                 </div>
                 <div>
-                    <TableProduct rows={props.products} />
+                    <TableProduct rows={props.products} onEdit={onEditRow} onDelete={onDeleteRow} />
                 </div>
             </DashboardLayout>
         </Authenticated>

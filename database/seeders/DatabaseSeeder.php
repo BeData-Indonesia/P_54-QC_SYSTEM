@@ -19,7 +19,9 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'admin',
             'email' => 'admin@example.com',
-            'password' => Hash::make('admin'),
+            'password' => Hash::make(env('ADMIN_PASSWORD', 'admin')),
+            'admin' => true,
+            'verified_user' => true,
         ]);
         $this->call([
             // ExpanderSeeder::class,

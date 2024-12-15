@@ -6,6 +6,7 @@ use App\Http\Controllers\InjectController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RekapBalokController;
 use App\Http\Controllers\RekapInjectController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -24,12 +25,6 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return redirect('/input/expanders/');
-    // return Inertia::render('Welcome', [
-    //     'canLogin' => Route::has('login'),
-    //     'canRegister' => Route::has('register'),
-    //     'laravelVersion' => Application::VERSION,
-    //     'phpVersion' => PHP_VERSION,
-    // ]);
 });
 
 Route::get('/dashboard', function () {
@@ -37,9 +32,18 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
+Route::prefix('users')->middleware(['auth','verified', 'admin'])->group(function(){
+    Route::get('/',[UserController::class,'index'])->name('userss.get');
+    Route::delete('/{id}',[UserController::class,'delete'])->name('userss.delete');
+    Route::put('/{id}',[UserController::class,'activate'])->name('userss.put');
+});
+
 Route::prefix('products')->middleware(['auth','verified'])->group(function(){
     Route::get('/',[ProductController::class,'get'])->name('product.get');
     Route::post('/',[ProductController::class,'importFile'])->name('product.post');
+    Route::delete('/{id}',[ProductController::class,'delete'])->name('product.delete');
+    Route::get('edit/{id}',[ProductController::class,'edit'])->name('product.edit');
+    Route::put('edit/{id}',[ProductController::class,'update'])->name('product.update');
 });
 
 

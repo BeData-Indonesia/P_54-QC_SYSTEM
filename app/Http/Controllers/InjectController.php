@@ -29,6 +29,7 @@ class InjectController extends Controller
             $tahun = $request->input('tahun');
             $injectQuery->whereYear('date', $tahun);
         }
+        
         if ($search) {
             $injectQuery = $injectQuery->whereHas('expander', function ($query) use ($search) {
                 $query->where('untuk_produk', 'like', '%' . $search . '%')

@@ -19,8 +19,6 @@ class ProductsImport implements ToCollection
     {
         DB::beginTransaction();
         try {
-            DB::table('products')->delete();
-
             foreach ($rows as $row) {
                 Product::create([
                     'name' => $row[0],
