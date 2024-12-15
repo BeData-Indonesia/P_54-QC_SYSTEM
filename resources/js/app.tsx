@@ -5,7 +5,7 @@ import { createInertiaApp } from "@inertiajs/inertia-react";
 import { InertiaProgress } from "@inertiajs/progress";
 import * as React from "react";
 
-const appName = "Quality Control PT.KCSI";
+const appName = "Quality Control";
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
