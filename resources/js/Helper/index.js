@@ -39,7 +39,7 @@ export const getTotalBeratInjectFormExpander = (row) => {
     }
     const totalBagus = row.reduce((accumulator, currenrValue) => {
         return (
-            accumulator + currenrValue["berat_kering"] * currenrValue["bagus"]
+            accumulator + currenrValue["berat_kering"] * (currenrValue["bagus"] + currenrValue["rusak"])
         );
     }, 0);
     return totalBagus;
